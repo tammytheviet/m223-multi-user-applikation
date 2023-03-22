@@ -45,7 +45,7 @@ public class AuthController {
     JwtUtils jwtUtils;
 
     @PostMapping("/signin")
-    public ResponseEntity < ? > authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
 
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
@@ -69,7 +69,7 @@ public class AuthController {
     }
 
     @PostMapping("/signup")
-    public ResponseEntity < ? > registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
+    public ResponseEntity <?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                 .badRequest()
@@ -83,8 +83,8 @@ public class AuthController {
         // Create new user's account
         User user = new User(signUpRequest.getUsername(),
             signUpRequest.getEmail(), encoder.encode(signUpRequest.getPassword()));
-        Set < String > strRoles = signUpRequest.getRole();
-        Set < Role > roles = new HashSet < > ();
+        Set <String> strRoles = signUpRequest.getRole();
+        Set <Role> roles = new HashSet<> ();
         if (strRoles == null) {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
