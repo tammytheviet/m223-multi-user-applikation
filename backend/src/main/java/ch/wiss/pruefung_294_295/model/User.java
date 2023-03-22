@@ -34,6 +34,10 @@ public class User {
     @NotNull
     private String password;
 
+    public User() {
+        
+    }
+
     public User(int id, String username, String email, String password) {
         this.id = id;
         this.username = username;
