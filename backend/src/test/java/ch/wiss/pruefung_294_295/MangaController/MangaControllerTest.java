@@ -14,11 +14,9 @@ import ch.wiss.pruefung_294_295.model.MangaRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@RunWith(SpringJUnit4ClassRunner.class)
 public class MangaControllerTest {
 	
 	@MockBean private MangaRepository mangaRepository;
