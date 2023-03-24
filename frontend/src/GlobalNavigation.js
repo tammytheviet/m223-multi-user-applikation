@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import AuthService from "./services/auth.service";
+import AuthService from "./auth.service";
 
 
 class GlobalNavigation extends React.Component
