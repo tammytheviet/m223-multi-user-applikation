@@ -1,10 +1,7 @@
-import React, {
-    Component
-} from "react";
+import React, { Component } from "react";
 import AuthService from "../services/auth.service";
-import {
-    withRouter
-} from '../common/with-router';
+import { withRouter } from '../common/with-router';
+
 const required = value => {
     if (!value) {
         return ( <div className = "alert alert-danger"

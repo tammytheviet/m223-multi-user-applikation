@@ -13,6 +13,8 @@ const App = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout />}>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
         <Route path="manga" element={<Manga />} />
         <Route path="mangalist" element={<MangaList />} />
         <Route path="mangaupdate" element={<MangaUpdate />} />
