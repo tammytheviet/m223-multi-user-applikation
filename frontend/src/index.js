@@ -5,12 +5,6 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import { BrowserRouter } from 'react-router-dom';
 
-WebFont.load({
-  google: {
-    families: ["Poppins", "Inter:500,300"],
-  },
-});
-
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <BrowserRouter>
