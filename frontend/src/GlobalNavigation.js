@@ -24,7 +24,6 @@ class GlobalNavigation extends React.Component
          this.setState(
          {
             currentUser: user,
-            showModeratorBoard: user.roles.includes("ROLE_MODERATOR"),
             showAdminBoard: user.roles.includes("ROLE_ADMIN"),
          });
       }
@@ -36,7 +35,6 @@ class GlobalNavigation extends React.Component
       AuthService.logout();
       this.setState(
       {
-         showModeratorBoard: false,
          showAdminBoard: false,
          currentUser: undefined,
       });
@@ -44,16 +42,14 @@ class GlobalNavigation extends React.Component
 
    render()
    {
-   const { currentUser, showModeratorBoard, showAdminBoard } = this.state;
+   const { currentUser, showAdminBoard } = this.state;
+
    return(
       <nav className="navbar navbar-expand navbar-dark bg-dark">
       <ul> 
-      <li><Link to="/home">Home</Link></li>
-      <li><Link to="/quiz">Quiz</Link></li>
-      <li><Link to="/aboutus">About Us</Link></li>
-      {showModeratorBoard && (
-      <li><Link to="/questions">Questions</Link></li>
-      )}
+         <li><Link to="/home">Home</Link></li>
+         <li><Link to="/quiz">Quiz</Link></li>
+         <li><Link to="/aboutus">About Us</Link></li>
       {showAdminBoard && (
       <li><Link to={"/admin"}> Admin Board </Link></li>
       )}

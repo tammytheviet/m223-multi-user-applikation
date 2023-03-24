@@ -7,7 +7,7 @@ import MangaUpdate from "./components/MangaUpdate";
 import Layout from "./components/Layout";
 import Chapter from "./components/Chapter";
 
-export default function App() {
+const App = () => {
   return (
     <div className="App">
     <BrowserRouter>
@@ -23,5 +23,17 @@ export default function App() {
     </div>
   );
 }
+
+const Layout = () => {
+  return(
+    <div className="App">
+      <div className="content">
+        <header className="App-header">
+          <h1>Welcome to the Manga Library</h1>
+          <hr/>
+          <Outlet/>
+        </header>
+      </div>
+    </div>);}
 
 ReactDOM.render(<App />, document.getElementById("root"));
