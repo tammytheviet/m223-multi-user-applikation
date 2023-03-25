@@ -7,8 +7,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import ch.wiss.pruefung_294_295.controller.ChapterController;
 import ch.wiss.pruefung_294_295.controller.MangaController;
-import ch.wiss.pruefung_294_295.model.ChapterRepository;
-import ch.wiss.pruefung_294_295.model.MangaRepository;
+import ch.wiss.pruefung_294_295.repository.ChapterRepository;
+import ch.wiss.pruefung_294_295.repository.MangaRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 

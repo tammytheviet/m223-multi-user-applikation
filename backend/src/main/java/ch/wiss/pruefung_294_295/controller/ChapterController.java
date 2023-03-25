@@ -24,9 +24,9 @@ import ch.wiss.pruefung_294_295.exceptions.ChapterCouldNotBeUpdatedException;
 import ch.wiss.pruefung_294_295.exceptions.ChapterLoadException;
 import ch.wiss.pruefung_294_295.exceptions.MangaCouldNotBeFoundException;
 import ch.wiss.pruefung_294_295.model.Chapter;
-import ch.wiss.pruefung_294_295.model.ChapterRepository;
 import ch.wiss.pruefung_294_295.model.Manga;
-import ch.wiss.pruefung_294_295.model.MangaRepository;
+import ch.wiss.pruefung_294_295.repository.ChapterRepository;
+import ch.wiss.pruefung_294_295.repository.MangaRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController // This means that this class is a Controller

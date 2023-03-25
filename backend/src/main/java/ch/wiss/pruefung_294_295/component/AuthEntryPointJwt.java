@@ -1,4 +1,4 @@
-package ch.wiss.pruefung_294_295.model;
+package ch.wiss.pruefung_294_295.component;
 
 import java.io.IOException;
 

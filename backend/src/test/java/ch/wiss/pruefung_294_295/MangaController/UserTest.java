@@ -7,7 +7,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import ch.wiss.pruefung_294_295.model.User;
-import ch.wiss.pruefung_294_295.model.UserRepository;
+import ch.wiss.pruefung_294_295.repository.UserRepository;
 
 import java.util.Optional;
 

@@ -8,7 +8,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
 
 import ch.wiss.pruefung_294_295.model.ERole;
 import ch.wiss.pruefung_294_295.model.Role;
-import ch.wiss.pruefung_294_295.model.RoleRepository;
+import ch.wiss.pruefung_294_295.repository.RoleRepository;
 
 import java.util.Optional;
 

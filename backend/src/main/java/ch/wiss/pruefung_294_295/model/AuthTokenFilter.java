@@ -17,6 +17,9 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import ch.wiss.pruefung_294_295.component.JwtUtils;
+import ch.wiss.pruefung_294_295.service.UserDetailsServiceImpl;
+
 /**
  * a filter that executes once per request. AuthTokenFilter class that extends OncePerRequestFilter and overrides doFilterInternal() method. 
  */

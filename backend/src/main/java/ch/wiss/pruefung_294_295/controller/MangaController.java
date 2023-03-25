@@ -21,7 +21,7 @@ import ch.wiss.pruefung_294_295.exceptions.MangaCouldNotBeSavedException;
 import ch.wiss.pruefung_294_295.exceptions.MangaCouldNotBeUpdatedException;
 import ch.wiss.pruefung_294_295.exceptions.MangaLoadException;
 import ch.wiss.pruefung_294_295.model.Manga;
-import ch.wiss.pruefung_294_295.model.MangaRepository;
+import ch.wiss.pruefung_294_295.repository.MangaRepository;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController // This means that this class is a Controller

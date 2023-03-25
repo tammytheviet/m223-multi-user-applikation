@@ -1,4 +1,4 @@
-package ch.wiss.pruefung_294_295.model;
+package ch.wiss.pruefung_294_295.component;
 
 
 import java.util.Date;
@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
+import ch.wiss.pruefung_294_295.model.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;

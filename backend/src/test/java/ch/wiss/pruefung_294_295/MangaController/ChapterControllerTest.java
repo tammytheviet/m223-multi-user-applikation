@@ -8,8 +8,8 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import ch.wiss.pruefung_294_295.controller.ChapterController;
 import ch.wiss.pruefung_294_295.controller.MangaController;
-import ch.wiss.pruefung_294_295.model.ChapterRepository;
-import ch.wiss.pruefung_294_295.model.MangaRepository;
+import ch.wiss.pruefung_294_295.repository.ChapterRepository;
+import ch.wiss.pruefung_294_295.repository.MangaRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;

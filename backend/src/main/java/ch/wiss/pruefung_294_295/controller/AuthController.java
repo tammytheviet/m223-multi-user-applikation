@@ -20,7 +20,14 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import ch.wiss.pruefung_294_295.component.JwtUtils;
 import ch.wiss.pruefung_294_295.model.*;
+import ch.wiss.pruefung_294_295.repository.RoleRepository;
+import ch.wiss.pruefung_294_295.repository.UserRepository;
+import ch.wiss.pruefung_294_295.request.LoginRequest;
+import ch.wiss.pruefung_294_295.request.SignupRequest;
+import ch.wiss.pruefung_294_295.response.JwtResponse;
+import ch.wiss.pruefung_294_295.response.MessageResponse;
 
 
 
