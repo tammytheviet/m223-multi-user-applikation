@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react"
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Paper,Button } from '@material-ui/core';
+import { Paper,Button,Link } from '@material-ui/core';
 import { useNavigate } from "react-router-dom";
 import AuthService from "../auth.service";
 
@@ -59,7 +59,8 @@ export default function Login() {
                     />
                     <Button variant="contained" color="primary" type="submit">
                         Submit
-                    </Button>
+                    </Button><br/>
+                    <Link href="./signup">Don't have an account?</Link>
                 </form>
             </Paper>
     </>
