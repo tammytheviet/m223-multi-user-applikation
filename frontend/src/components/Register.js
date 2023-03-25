@@ -19,6 +19,7 @@ export default function Register(){
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const [setError] = useState("");
     const navigate = useNavigate()
     const classes = useStyles();
 
@@ -29,18 +30,21 @@ export default function Register(){
             redirect: "follow",
             headers:{
                 "Accept": "application/json",
-                "Content-Type":"application/json"
+                "Content-Type":"application/json",
             },
-            body:JSON.stringify({
+            body: JSON.stringify({
                 "username": username, 
-                "email": email, 
-                "password": password
+                "password": password,
+                "email": email
             })
         }).then(res => {
-            return console.log(res)
-        }).then(res => {
-            return console.log(username, email, password)
-        })
+            if (res.ok){
+                console.log("Success")
+                navigate("/login")
+            } else {
+                console.log("Error")
+            }
+        }).catch(err => setError(err.message));
     }
 
     return (
@@ -52,14 +56,17 @@ export default function Register(){
                 
                     <TextField id="outlined-basic" label="Username" variant="outlined" fullWidth 
                     value={username}
+                    required
                     onChange={(e)=>setUsername(e.target.value)}
                     />
                     <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth
                     value={email}
+                    required
                     onChange={(e)=>setEmail(e.target.value)}
                     />
                     <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth
                     value={password}
+                    required
                     onChange={(e)=>setPassword(e.target.value)}
                     type="password"
                     />
