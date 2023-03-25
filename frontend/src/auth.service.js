@@ -9,6 +9,7 @@ const register = (username, email, password) => {
  username, email, password,
  });
 };
+
 const login = (username, password) => {
  return axios
  .post(API_URL + "signin", { username, password, })
@@ -19,12 +20,18 @@ const login = (username, password) => {
  return response.data;
  });
 };
+
 const logout = () => {
  localStorage.removeItem("user");
 };
+
 const getCurrentUser = () => {
- return JSON.parse(localStorage.getItem("user"));
-};
+    return JSON.parse(localStorage.getItem('user'));
+  }
+  export const getCurrentUserToken = () => {
+      return JSON.parse(localStorage.getItem('user')).accessToken;
+  }
+
 const AuthService = {
  register,
  login,

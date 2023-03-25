@@ -20,7 +20,7 @@ export default function Register(){
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [setError] = useState("");
-    const navigate = useNavigate()
+    const navigate = useNavigate();
     const classes = useStyles();
 
     const handleSubmit = (e) =>{
@@ -33,7 +33,7 @@ export default function Register(){
                 "Content-Type":"application/json",
             },
             body: JSON.stringify({
-                "username": username, 
+                "username": username,
                 "password": password,
                 "email": email
             })

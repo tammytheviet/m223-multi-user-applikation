@@ -4,6 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Paper,Button } from '@material-ui/core';
 import { useNavigate } from "react-router-dom";
+import AuthService from "../auth.service";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -14,48 +15,42 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function Login(){
-    const paperStyle={padding:'50px 20px', width:600,margin:"20px auto"}
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate()
+export default function Login() {
+    const paperStyle={padding:'50px 20px', width:600,margin:"20px auto"};
+    const [username, setUsername] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
+    const navigate = useNavigate();
     const classes = useStyles();
 
-    const handleSubmit = (event) =>{
-        event.preventDefault();
-        fetch("http://localhost:8080/api/auth/signup", {
-            method:"POST",
-            redirect: "follow",
-            headers:{
-                "Accept": "application/json",
-                "Content-Type":"application/json"
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        AuthService.login(username, password).then(
+            () => {
+                navigate('/AccountDetails');
+                window.location.reload();
             },
-            body:JSON.stringify({
-                "username": username, 
-                "email": email, 
-                "password": password
-            })
-        }).then(res => {
-            return console.log(res)
-        })
-        return console.log("Success")
-    }
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                setError(resMessage);
+            });
+    };
 
     return (
     <>
             <Paper elevation={3} style={paperStyle}>
                 <h1 style={{color:"blue"}}><u>Login</u></h1>
 
-                <form className={classes.root} noValidate autoComplete="off" onSubmit={() => {handleSubmit(); navigate("/signin")}}>
                 
+                <form className={classes.root} noValidate autoComplete="off" onSubmit={handleSubmit}>
                     <TextField id="outlined-basic" label="Username" variant="outlined" fullWidth 
                     value={username}
                     onChange={(e)=>setUsername(e.target.value)}
-                    />
-                    <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth
-                    value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
                     />
                     <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth
                     value={password}
