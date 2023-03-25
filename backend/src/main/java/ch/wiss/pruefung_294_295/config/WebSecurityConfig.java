@@ -15,7 +15,7 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
-import ch.wiss.pruefung_294_295.model.AuthTokenFilter;
+import ch.wiss.pruefung_294_295.jwt.AuthTokenFilter;
 import ch.wiss.pruefung_294_295.service.UserDetailsServiceImpl;
 
 @Configuration
@@ -29,8 +29,8 @@ public class WebSecurityConfig {
 
     private final static String[] EVERYONE = {
         "/api/auth/**",
-        "/category",
-        "/quiz"
+        "/manga",
+        "/chapter"
     };
 
     private final static String[] SECURE = {
@@ -38,7 +38,6 @@ public class WebSecurityConfig {
     };
 
     private final static String[] ROLES = {
-        "MODERATOR",
         "ADMIN"
     };
 

@@ -1,4 +1,4 @@
-package ch.wiss.pruefung_294_295.component;
+package ch.wiss.pruefung_294_295.jwt;
 
 import java.io.IOException;
 
@@ -17,6 +17,7 @@ import org.springframework.stereotype.Component;
  * This method is triggered anytime an unauthenticated User requests a secured HTTP resource 
  * and an AuthenticationException is thrown
  */
+
 @Component
 public class AuthEntryPointJwt implements AuthenticationEntryPoint {
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);

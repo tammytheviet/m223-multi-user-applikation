@@ -1,4 +1,4 @@
-package ch.wiss.pruefung_294_295.component;
+package ch.wiss.pruefung_294_295.jwt;
 
 
 import java.util.Date;
@@ -9,14 +9,13 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import ch.wiss.pruefung_294_295.model.UserDetailsImpl;
+import ch.wiss.pruefung_294_295.service.UserDetailsImpl;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
-
 
 /**
  * This class has 3 main functions:

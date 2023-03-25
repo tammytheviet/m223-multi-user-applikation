@@ -12,6 +12,20 @@ import javax.persistence.Table;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+/**
+ * @class Chapter
+ * @author Fabio Facundo & Tam Nguyen
+ * @version 1.0
+ * 
+ * @Entity Eclipse erstellt eine Tabelle und eine Verbindung zu der Datenbank.
+ * @Table Eclipse gibt Tabelle den Namen chapter.
+ * @Id Deklariert, dass mangaId ein Primary Key ist.
+ * @GeneratedValue Bestimmt die Primary Key strategy
+ * @Enumerated Bestimmt, dass es von ENUM zum STRING werden kann.
+ * @Column Macht ein Column
+ * 
+ */
+
 @Entity
 @Table(name = "role")
 public class Role {

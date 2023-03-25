@@ -10,5 +10,5 @@ import ch.wiss.pruefung_294_295.model.Role;
 
 @Repository
 public interface RoleRepository extends JpaRepository < Role, Long > {
-    Optional < Role > findByName(ERole name);
+    Optional <Role> findByName(ERole name);
 }

@@ -13,7 +13,7 @@ import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
  * @class Chapter
- * @author Fabio Facundo
+ * @author Fabio Facundo & Tam Nguyen
  * @version 1.0
  * 
  * @Entity Eclipse erstellt eine Tabelle und eine Verbindung zu der Datenbank.

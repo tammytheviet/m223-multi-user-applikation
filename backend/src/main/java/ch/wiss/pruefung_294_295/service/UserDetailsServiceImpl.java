@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import ch.wiss.pruefung_294_295.model.Role;
 import ch.wiss.pruefung_294_295.model.User;
-import ch.wiss.pruefung_294_295.model.UserDetailsImpl;
 import ch.wiss.pruefung_294_295.repository.UserRepository;
 
 @Service
@@ -30,7 +29,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         User user = userRepository.findByUsername(username)
             .orElseThrow(() -> new UsernameNotFoundException("User Not Found with username: " + username));
 
-        List < GrantedAuthority > authorities = new ArrayList < > ();
+        List<GrantedAuthority> authorities = new ArrayList<> ();
 
         for (Role r: user.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(r.getName().toString()));
