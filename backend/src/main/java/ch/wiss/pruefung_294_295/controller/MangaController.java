@@ -27,9 +27,19 @@ import ch.wiss.pruefung_294_295.repository.MangaRepository;
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/manga") // This means URL's start with /manga (after Application path)
 public class MangaController {
+
+	/**
+	 * Wire Manga Repository
+	 */
 	@Autowired
 	private MangaRepository mangaRepository;
 
+	/**
+	 * Creates new Manga
+	 * 
+	 * @param newManga
+	 * @return
+	 */
 	@PostMapping(path = "") // Map ONLY Post Requests
 	public ResponseEntity<String> addNewManga(@Valid @RequestBody Manga newManga) {
 		try {
@@ -41,7 +51,11 @@ public class MangaController {
 		return ResponseEntity.ok("Saved");
 	}
 		
-
+	/**
+	 * Lists all mangas
+	 * 
+	 * @return all mangas
+	 */
 	@GetMapping(path = "")
 	public ResponseEntity<Iterable<Manga>> getAllMangas() {
 		Iterable<Manga> mangas = null;
@@ -55,7 +69,12 @@ public class MangaController {
 		return ResponseEntity.ok(mangas);
 	}
 	
-	
+	/**
+	 * Deletes existing manga
+	 * 
+	 * @param id
+	 * @return
+	 */
 	@DeleteMapping(path = "") //DELETE ONLY Request
     public ResponseEntity<String> deleteManga(@RequestParam int id)
     {
@@ -72,7 +91,13 @@ public class MangaController {
 
     }
 	
-	
+	/**
+	 * Updates existing manga
+	 * 
+	 * @param id
+	 * @param mangaInfos
+	 * @return
+	 */
 	@PutMapping(path = "/{id}") // UPDATE ONLY Request
     public @ResponseBody ResponseEntity<String> updateManga(@PathVariable (value = "id") int id, @RequestBody Manga mangaInfos) 
 	{

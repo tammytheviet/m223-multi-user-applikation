@@ -1,72 +1,113 @@
-import * as React from "react";
-import { useState } from "react"
-import { makeStyles } from '@material-ui/core/styles';
-import TextField from '@material-ui/core/TextField';
-import { Paper,Button } from '@material-ui/core';
-import { useNavigate } from "react-router-dom";
+import * as React from 'react';
+import Avatar from '@mui/material/Avatar';
+import Button from '@mui/material/Button';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+import Link from '@mui/material/Link';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
+import Typography from '@mui/material/Typography';
+import Container from '@mui/material/Container';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import {useNavigate} from "react-router-dom";
+import {useState} from "react";
+import AuthService from "../api/auth/auth.service";
 
-const useStyles = makeStyles((theme) => ({
-    root: {
-      '& > *': {
-        margin: theme.spacing(1),
-       
-      },
-    },
-}));
-
-export default function Login(){
-    const paperStyle={padding:'50px 20px', width:600,margin:"20px auto"}
-    const [username, setUsername] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const navigate = useNavigate()
-    const classes = useStyles();
-
-    const handleSubmit = (event) =>{
+const theme = createTheme();
+export default function SignIn() {
+    const navigate = useNavigate();
+    const [username, setUserName] = useState('');
+    const [password, setPassword] = useState('');
+    const [error, setError] = useState(null);
+    const handleSubmit = (event) => {
         event.preventDefault();
-        fetch("http://localhost:8080/api/auth/signup", {
-            method:"POST",
-            redirect: "follow",
-            headers:{
-                "Accept": "application/json",
-                "Content-Type":"application/json"
+        AuthService.login(username, password).then(
+            () => {
+                navigate('/dashboard');
+                window.location.reload();
             },
-            body:JSON.stringify({
-                "username": username, 
-                "email": email, 
-                "password": password
-            })
-        }).then(res => {
-            return console.log(res)
-        })
-        return console.log("Success")
-    }
+            (error) => {
+                const resMessage =
+                    (error.response &&
+                        error.response.data &&
+                        error.response.data.message) ||
+                    error.message ||
+                    error.toString();
+                setError(resMessage);
+            });
+    };
 
     return (
-    <>
-            <Paper elevation={3} style={paperStyle}>
-                <h1 style={{color:"blue"}}><u>Login</u></h1>
-
-                <form className={classes.root} noValidate autoComplete="off" onSubmit={() => {handleSubmit(); navigate("/signin")}}>
-                
-                    <TextField id="outlined-basic" label="Username" variant="outlined" fullWidth 
-                    value={username}
-                    onChange={(e)=>setUsername(e.target.value)}
-                    />
-                    <TextField id="outlined-basic" label="Email" variant="outlined" fullWidth
-                    value={email}
-                    onChange={(e)=>setEmail(e.target.value)}
-                    />
-                    <TextField id="outlined-basic" label="Password" variant="outlined" fullWidth
-                    value={password}
-                    onChange={(e)=>setPassword(e.target.value)}
-                    type="password"
-                    />
-                    <Button variant="contained" color="primary" type="submit">
-                        Submit
-                    </Button>
-                </form>
-            </Paper>
-    </>
+        <ThemeProvider theme={theme}>
+            <Container component="main" maxWidth="xs">
+                <CssBaseline />
+                <Box
+                    sx={{
+                        marginTop: 8,
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                    }}
+                >
+                    <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+                        <LockOutlinedIcon />
+                    </Avatar>
+                    <Typography component="h1" variant="h5">
+                        Sign in
+                    </Typography>
+                    <Box component="form" onSubmit={handleSubmit} noValidate sx={{ mt: 1 }}>
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            id="username"
+                            label="Username"
+                            onChange={(e) => setUserName(e.target.value)}
+                            name="username"
+                            autoComplete="username"
+                            autoFocus
+                        />
+                        <TextField
+                            margin="normal"
+                            required
+                            fullWidth
+                            name="password"
+                            label="Password"
+                            onChange={(e) => setPassword(e.target.value)}
+                            type="password"
+                            id="password"
+                            autoComplete="current-password"
+                        />
+                        <FormControlLabel
+                            control={<Checkbox value="remember" color="primary" />}
+                            label="Remember me"
+                        />
+                        <Button
+                            type="submit"
+                            fullWidth
+                            variant="contained"
+                            sx={{ mt: 3, mb: 2 }}
+                        >
+                            Sign In
+                        </Button>
+                        <Grid container>
+                            <Grid item xs>
+                                <Link href="#" variant="body2">
+                                    Forgot password?
+                                </Link>
+                            </Grid>
+                            <Grid item>
+                                <Link href="/signup" variant="body2">
+                                    {"Don't have an account? Sign Up"}
+                                </Link>
+                            </Grid>
+                        </Grid>
+                    </Box>
+                </Box>
+            </Container>
+        </ThemeProvider>
     );
 }
