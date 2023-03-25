@@ -25,6 +25,8 @@ export default function Register(){
 
     const handleSubmit = (e) =>{
         e.preventDefault();
+        const errors = validateAll(username, email, password);
+        if(Object.keys(errors).length === 0){
         fetch("http://localhost:8080/api/auth/signup", {
             method:"POST",
             redirect: "follow",
@@ -45,6 +47,7 @@ export default function Register(){
                 console.log("Error")
             }
         }).catch(err => setError(err.message));
+        }
     }
 
     return (

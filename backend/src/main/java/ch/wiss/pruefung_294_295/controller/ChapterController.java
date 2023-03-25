@@ -32,13 +32,24 @@ import ch.wiss.pruefung_294_295.repository.MangaRepository;
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/chapter") // This means URL's start with /manga (after Application path)
 public class ChapterController {
+
+    /**
+     * Wire Chapter und Manga Repositories
+     */
 	@Autowired
 	private ChapterRepository chapterRepository;
 	@Autowired
 	private MangaRepository mangaRepository;
 
+    /**
+     * Creates new Chapter
+     * 
+     * @param mangaId
+     * @param chapter
+     * @return "saved"
+     */
 	@PostMapping(path = "/{manga}") // Map ONLY POST Requests
-    public ResponseEntity<String> addNewTeam(@PathVariable(value = "manga") Integer mangaId,
+    public ResponseEntity<String> addNewChapter(@PathVariable(value = "manga") Integer mangaId,
                                              @Valid @RequestBody Chapter chapter)
     {
         Optional<Manga> manga = mangaRepository.findById(mangaId);
@@ -59,7 +70,11 @@ public class ChapterController {
         return ResponseEntity.ok("Saved");
     }
 		
-
+    /**
+     * Lists all chapters
+     * 
+     * @return all chapters
+     */
 	@GetMapping(path = "")
 	public ResponseEntity<Iterable<Chapter>> getAllChapters() {
 		Iterable<Chapter> chapters = null;
@@ -74,7 +89,12 @@ public class ChapterController {
 		return ResponseEntity.ok(chapters);
 	}
 	
-	
+	/**
+     * Deletes specific chapter
+     * 
+     * @param id
+     * @return "deleted"
+     */
 	@DeleteMapping(path = "") //DELETE ONLY Request
     public ResponseEntity<String> deleteChapter(@RequestParam int id)
     {
@@ -91,7 +111,13 @@ public class ChapterController {
 
     }
 	
-	
+	/**
+     * Updates specific chapter
+     * 
+     * @param id
+     * @param chapterInfos
+     * @return "updated"
+     */
 	@PutMapping(path = "/{id}") // UPDATE ONLY Request
     public @ResponseBody ResponseEntity<String> updateChapter(@PathVariable (value = "id") Integer id, @RequestBody Chapter chapterInfos) 
 	{
