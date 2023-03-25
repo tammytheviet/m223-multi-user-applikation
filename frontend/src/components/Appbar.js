@@ -18,6 +18,12 @@ export default function Appbar() {
           <Button color="inherit">
             <Link to="/manga">Add Manga</Link>
           </Button>
+          <Button color="inherit">
+            <Link to="/login">Login</Link>
+          </Button>
+          <Button color="inherit">
+            <Link to="/register">Register</Link>
+          </Button>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Manga Library
           </Typography>
