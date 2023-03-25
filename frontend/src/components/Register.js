@@ -2,7 +2,7 @@ import * as React from "react";
 import { useState } from "react"
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
-import { Paper, Button } from '@material-ui/core';
+import { Paper, Button, Link } from '@material-ui/core';
 import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
@@ -22,8 +22,8 @@ export default function Register(){
     const navigate = useNavigate()
     const classes = useStyles();
 
-    const handleSubmit = (event) =>{
-        event.preventDefault();
+    const handleSubmit = (e) =>{
+        e.preventDefault();
         fetch("http://localhost:8080/api/auth/signup", {
             method:"POST",
             redirect: "follow",
@@ -38,8 +38,9 @@ export default function Register(){
             })
         }).then(res => {
             return console.log(res)
+        }).then(res => {
+            return console.log(username, email, password)
         })
-        return console.log("Success")
     }
 
     return (
@@ -47,7 +48,7 @@ export default function Register(){
             <Paper elevation={3} style={paperStyle}>
                 <h1 style={{color:"blue"}}><u>Register</u></h1>
 
-                <form className={classes.root} noValidate autoComplete="off" onSubmit={() => {handleSubmit(); navigate("/login")}}>
+                <form className={classes.root} noValidate autoComplete="off">
                 
                     <TextField id="outlined-basic" label="Username" variant="outlined" fullWidth 
                     value={username}
@@ -62,9 +63,10 @@ export default function Register(){
                     onChange={(e)=>setPassword(e.target.value)}
                     type="password"
                     />
-                    <Button variant="contained" color="primary" type="submit">
-                        Submit
-                    </Button>
+                    <Button variant="contained" color="primary" onClick={handleSubmit}>
+                        Create Account
+                    </Button><br/>
+                    <Link href="./signin">Already have an account?</Link>
                 </form>
             </Paper>
     </>
