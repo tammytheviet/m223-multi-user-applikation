@@ -1,5 +1,6 @@
 package ch.wiss.pruefung_294_295.controller;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ import ch.wiss.pruefung_294_295.repository.MangaRepository;
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController // This means that this class is a Controller
 @RequestMapping(path = "/manga") // This means URL's start with /manga (after Application path)
+@Transactional
 public class MangaController {
 
 	/**
