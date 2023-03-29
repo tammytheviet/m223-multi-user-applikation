@@ -2,6 +2,7 @@ package ch.wiss.pruefung_294_295.controller;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -31,6 +32,7 @@ import ch.wiss.pruefung_294_295.response.JwtResponse;
 import ch.wiss.pruefung_294_295.response.MessageResponse;
 import ch.wiss.pruefung_294_295.service.UserDetailsImpl;
 
+import org.springframework.web.bind.annotation.GetMapping;
 
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -147,16 +149,22 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
-    @GetMapping("account")
-    public ResponseEntity<Iterable<Manga>> getAllMangas() {
-		Iterable<Manga> mangas = null;
+    @GetMapping("/account")
+    public ResponseEntity<Optional<User>> getUser(Authentication authentication) {
+		Optional<User> user = null;
+        String username = authentication.getName();
 
-		try {
-			mangas = mangaRepository.findAll();
-		} catch (Exception ex) {
-			throw new MangaLoadException();
-		}
+			user = userRepository.findByUsername(username);
 
-		return ResponseEntity.ok(mangas);
+		return ResponseEntity.ok(user);
 	}
+
+    /*public ResponseEntity<Optional<User>> getUser(@RequestBody String username) {
+		Optional<User> user = null;
+        System.out.println(username);
+
+			user = userRepository.findByUsername(username);
+
+		return ResponseEntity.ok(user);
+	} */
 }

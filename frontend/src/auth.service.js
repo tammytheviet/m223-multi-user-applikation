@@ -31,6 +31,9 @@ const getCurrentUser = () => {
   export const getCurrentUserToken = () => {
       return JSON.parse(localStorage.getItem('user')).accessToken;
   }
+  export const getUsername = () => {
+      return JSON.parse(localStorage.getItem('user')).username;
+  }
 
 const AuthService = {
  register,

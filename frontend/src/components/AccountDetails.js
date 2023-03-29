@@ -1,24 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getCurrentUserToken } from '../auth.service';
+import { getCurrentUserToken, getUsername } from '../auth.service';
 
 const AccountDetails = () => {
     const navigate = useNavigate();
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        const token = getCurrentUserToken();
+        const username = getUsername();
 
-        fetch('http://localhost:8080/api/auth/signin', {
+        fetch('http://localhost:8080/api/auth/account', {
             method: 'GET',
             headers: {
-                Authorization: `Bearer ${token}`,
+                Username: username
             },
         })
             .then((res) => res.json())
             .then((data) => setUserData(data))
             .catch((error) => console.log(error));
-
     }, []);
 
     return (
