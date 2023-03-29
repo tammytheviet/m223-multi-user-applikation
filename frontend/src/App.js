@@ -8,6 +8,7 @@ import Layout from "./components/Layout";
 import Chapter from "./components/Chapter";
 import Login from "./components/Login";
 import Register from "./components/Register";
+import AccountDetails from "./components/AccountDetails";
 
 export default function App() {
   return (
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="mangalist" element={<MangaList />} />
           <Route path="mangaupdate" element={<MangaUpdate />} />
           <Route path="chapter" element={<Chapter />} />
+          <Route path="accountdetails" element={<AccountDetails />} />
           </Route>
         </Routes>
       </BrowserRouter>

@@ -73,7 +73,7 @@ export default function Register(){
                     <Button variant="contained" color="primary" onClick={handleSubmit}>
                         Create Account
                     </Button><br/>
-                    <Link href="./signin">Already have an account?</Link>
+                    <Link href="./login">Already have an account?</Link>
                 </form>
             </Paper>
     </>

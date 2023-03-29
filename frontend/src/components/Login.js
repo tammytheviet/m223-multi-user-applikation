@@ -58,9 +58,9 @@ export default function Login() {
                     type="password"
                     />
                     <Button variant="contained" color="primary" type="submit">
-                        Submit
+                        Login
                     </Button><br/>
-                    <Link href="./signup">Don't have an account?</Link>
+                    <Link href="./register">Don't have an account?</Link>
                 </form>
             </Paper>
     </>

@@ -147,4 +147,16 @@ public class AuthController {
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
+    @GetMapping("account")
+    public ResponseEntity<Iterable<Manga>> getAllMangas() {
+		Iterable<Manga> mangas = null;
+
+		try {
+			mangas = mangaRepository.findAll();
+		} catch (Exception ex) {
+			throw new MangaLoadException();
+		}
+
+		return ResponseEntity.ok(mangas);
+	}
 }
