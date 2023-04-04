@@ -13,8 +13,10 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 /**
+ * Diese Klasse ist eine Entity Klasse. Sie wird in der Datenbank gespeichert.
+ * Diese Klasse wird verwendet, um die User zu speichern.
  * @class Chapter
- * @author Fabio Facundo & Tam Nguyen
+ * @author Fabio Facundo & Tam Lai Nguyen
  * @version 1.0
  * 
  * @Entity Eclipse erstellt eine Tabelle und eine Verbindung zu der Datenbank.
@@ -24,6 +26,8 @@ import org.hibernate.annotations.OnDeleteAction;
  * @Enumerated Bestimmt, dass es von ENUM zum STRING werden kann.
  * @Column Macht ein Column
  * 
+ * @param id: ID der Rolle
+ * @param name: Name der Rolle
  */
 
 @Entity

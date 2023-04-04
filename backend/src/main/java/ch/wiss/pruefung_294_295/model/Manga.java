@@ -12,8 +12,9 @@ import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
 /**
+ * Diese Klasse ist eine Entity Klasse. Sie wird in der Datenbank gespeichert.
  * @class Manga
- * @author Fabio Facundo & Tam Nguyen
+ * @author Fabio Facundo & Tam Lai Nguyen
  * @version 1.0
  * 
  * @Entity Eclipse erstellt eine Tabelle und eine Verbindung zu der Datenbank.
@@ -23,6 +24,13 @@ import org.hibernate.annotations.OnDeleteAction;
  * @OneToMany Bestimmt, dass Manga eine Annotation zu einer anderen Tabelle hat.
  * @JoinColumn Macht ein JoinColumn zwischen Manga und Chapter. Man muss auch noch den Namen der Id eingeben und zudem auch den Namen der Id in der anderen Tabelle
  * 
+ * @param id: ID des Mangas
+ * @param titel: Titel des Mangas
+ * @param genre: Genre des Mangas
+ * @param zeichner: Zeichner des Mangas
+ * @param autor: Autor des Mangas
+ * @param status: Status des Mangas
+ * @param veröffentlichungsdatum: Veröffentlichungsdatum des Mangas
  */
 
 @Entity

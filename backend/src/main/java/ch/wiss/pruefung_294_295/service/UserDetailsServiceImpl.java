@@ -16,6 +16,11 @@ import ch.wiss.pruefung_294_295.model.Role;
 import ch.wiss.pruefung_294_295.model.User;
 import ch.wiss.pruefung_294_295.repository.UserRepository;
 
+/**
+ * Diese Klasse wird verwendet, um die Datenbankabfragen zu machen.
+ * @author Fabio Facundo & Tam Lai Nguyen
+ * @version 1.0
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
 

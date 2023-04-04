@@ -40,7 +40,7 @@ export default function Register(){
         }).then(res => {
             if (res.ok){
                 console.log("Success")
-                navigate("/login")
+                navigate("/AccountDetails")
             } else {
                 console.log("Error")
             }

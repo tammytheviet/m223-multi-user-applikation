@@ -14,6 +14,16 @@ import ch.wiss.pruefung_294_295.model.User;
 
 import java.util.List;
 
+/**
+ * Diese Klasse wird verwendet, um die Datenbankabfragen zu machen.
+ * @author Fabio Facundo & Tam Lai Nguyen
+ * @version 1.0
+ * 
+ * @param id: Die ID des Users
+ * @param username: Der Username des Users
+ * @param email: Die Email des Users
+ * @param password: Das Passwort des Users
+ */
 public class UserDetailsImpl implements UserDetails {
     private static final long serialVersionUID = 1;
     private Long id;

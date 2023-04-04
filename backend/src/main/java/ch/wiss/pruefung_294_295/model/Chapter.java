@@ -12,8 +12,9 @@ import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonBackReference;
 
 /**
+ * Diese Klasse ist eine Entity Klasse. Sie wird in der Datenbank gespeichert.
  * @class Chapter
- * @author Fabio Facundo & Tam Nguyen
+ * @author Fabio Facundo & Tam Lai Nguyen
  * @version 1.0
  * 
  * @Entity Eclipse erstellt eine Tabelle und eine Verbindung zu der Datenbank.

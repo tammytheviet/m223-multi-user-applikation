@@ -4,10 +4,12 @@ import org.springframework.data.repository.CrudRepository;
 
 import ch.wiss.pruefung_294_295.model.Manga;
 
-
-//This will be AUTO IMPLEMENTED by Spring into a Bean called userRepository
-//CRUD refers Create, Read, Update, Delete
-
+/**
+ * Dieses Interface wird verwendet, um die Datenbankabfragen zu machen.
+ * @class MangaRepository
+ * @author Fabio Facundo & Tam Lai Nguyen
+ * @version 1.0
+ */
 public interface MangaRepository extends CrudRepository < Manga, Integer > {
 	Manga deleteById(int id);
 }

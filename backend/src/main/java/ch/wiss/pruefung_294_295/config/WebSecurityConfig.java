@@ -18,64 +18,76 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import ch.wiss.pruefung_294_295.jwt.AuthTokenFilter;
 import ch.wiss.pruefung_294_295.service.UserDetailsServiceImpl;
 
+/**
+ * Diese Klasse dient zur Konfiguration von der WebSecurity.
+ * 
+ * @class WebSecurityConfig
+ * @author Fabio Facundo & Tam Lai Nguyen
+ * @version 1.0
+ */
 @Configuration
 @EnableWebSecurity
-public class WebSecurityConfig {
+public class WebSecurityConfig 
+{
 
+    //Objekt von der Klasse UserDetailsServiceImpl 'userDetailsService'
     @Autowired
     private UserDetailsServiceImpl userDetailsService;
+
+    //Objekt von der Klasse AuthenticationEntryPoint 'unauthorizedHandler'
     @Autowired
     private AuthenticationEntryPoint unauthorizedHandler;
 
-    private final static String[] EVERYONE = {
+    //Array, dass die Pfade für die öffentlichen Endpunkte hat
+    private final static String[] EVERYONE = 
+    {
         "/api/auth/**",
         "/manga",
         "/chapter"
     };
 
-    private final static String[] SECURE = {
+    //Array, dass die Pfade für die geschützten Endpunkte hat
+    private final static String[] SECURE = 
+    {
         "/question"
     };
 
-    private final static String[] ROLES = {
+    //Array, dass die erweiterten Rollen hat
+    private final static String[] ROLES = 
+    {
         "ADMIN"
     };
 
     @Bean
-    public AuthTokenFilter authenticationJwtTokenFilter() {
-
+    public AuthTokenFilter authenticationJwtTokenFilter() 
+    {
         return new AuthTokenFilter();
-
     }
 
     @Bean
-    public DaoAuthenticationProvider authenticationProvider() {
-
+    public DaoAuthenticationProvider authenticationProvider() 
+    {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-
         authProvider.setUserDetailsService(userDetailsService);
-
         authProvider.setPasswordEncoder(passwordEncoder());
-
         return authProvider;
-
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception 
+    {
         return authConfig.getAuthenticationManager();
-
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-
+    public PasswordEncoder passwordEncoder() 
+    {
         return new BCryptPasswordEncoder();
     }
 
     @Bean
-    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception 
+    {
         http.cors().and().csrf().disable()
             .exceptionHandling()
             .authenticationEntryPoint(unauthorizedHandler).and()
@@ -88,13 +100,10 @@ public class WebSecurityConfig {
                 .antMatchers(SECURE).hasAnyRole(ROLES)
                 .anyRequest().authenticated()
             );
-
         http.authenticationProvider(authenticationProvider());
         http.addFilterBefore(authenticationJwtTokenFilter(),
             UsernamePasswordAuthenticationFilter.class);
-
         return http.build();
-
     }
 
 }

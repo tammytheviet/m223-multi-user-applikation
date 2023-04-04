@@ -16,6 +16,26 @@ import javax.persistence.JoinColumn;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+
+/**
+ * Diese Klasse ist eine Entity Klasse. Sie wird in der Datenbank gespeichert.
+ * Diese Klasse wird verwendet, um die User zu speichern.
+ * @class Chapter
+ * @author Fabio Facundo & Tam Lai Nguyen
+ * @version 1.0
+ * 
+ * @Entity Eclipse erstellt eine Tabelle und eine Verbindung zu der Datenbank.
+ * @Table Eclipse gibt Tabelle den Namen chapter.
+ * @Id Deklariert, dass mangaId ein Primary Key ist.
+ * @GeneratedValue Bestimmt die Primary Key strategy
+ * @Enumerated Bestimmt, dass es von ENUM zum STRING werden kann.
+ * @Column Macht ein Column
+ * 
+ * @param id: ID des Benutzers
+ * @param username: Benutzername des Benutzers
+ * @param email: Email des Benutzers
+ * @param password: Passwort des Benutzers
+ */
 @Entity
 @Table(name = "user")
 public class User {

@@ -18,29 +18,48 @@ import io.jsonwebtoken.SignatureException;
 import io.jsonwebtoken.UnsupportedJwtException;
 
 /**
- * This class has 3 main functions:
- * generateJwtToken: create JWT Token from Auth object
- * getUserNameFromJwtToken: get username from JWT
- * validateJwtToken: validate a JWT with a secret
- */
-
+  * Diese Klasse hat 3 Hauptfunktionen:
+    * generateJwtToken: Erstellt ein JWT Token aus einem Auth-Objekt
+    * getUserNameFromJwtToken: Holt den Benutzernamen aus dem JWT
+    * validateJwtToken: Validiert ein JWT mit einem Secret
+  *
+  * @class JwtUtils
+  * @author Fabio Facundo & Tam Lai Nguyen
+  * @version 1.0
+  *
+  */
 @Component
-public class JwtUtils {
+public class JwtUtils 
+{
 
+    //Logger
     private static final Logger logger = LoggerFactory.getLogger(JwtUtils.class);
 
+    //Secret aus der application.properties-Datei
     @Value("${mangalib.app.jwtSecret}")
     private String jwtSecret;
 
+    //Expiration in Millisekunden aus der application.properties-Datei
     @Value("${mangalib.app.jwtExpirationMs}")
     private int jwtExpirationMs;
 
-    public String generateJwtToken(Authentication authentication) {
+    /**
+     * Erstellt ein JWT-Token aus einem Auth-Objekt
+     * 
+     * @param authentication
+     * 
+     * @return String
+     */
+    public String generateJwtToken(Authentication authentication) 
+    {
 
+        //Holt den Benutzernamen aus dem Auth-Objekt
         UserDetailsImpl userPrincipal = (UserDetailsImpl)
 
+        //Erstellt das JWT-Token
         authentication.getPrincipal();
 
+        //Gibt das JWT-Token zurück
         return Jwts.builder()
             .setSubject((userPrincipal.getUsername()))
             .setIssuedAt(new Date())
@@ -49,28 +68,65 @@ public class JwtUtils {
             .compact();
     }
 
-    public String getUserNameFromJwtToken(String token) {
+    /**
+     * Holt den Benutzernamen aus dem JWT
+     * 
+     * @param token
+     * 
+     * @return String
+     */
+    public String getUserNameFromJwtToken(String token) 
+    {
+
+        //Gibt den Benutzernamen zurück
         return Jwts.parser().setSigningKey(jwtSecret)
             .parseClaimsJws(token).getBody().getSubject();
     }
-    public boolean validateJwtToken(String authToken) {
-        try {
+
+    /**
+     * Validiert ein JWT mit einem Secret
+     * 
+     * @param authToken
+     * 
+     * @return boolean
+     */
+    public boolean validateJwtToken(String authToken) 
+    {
+        //Versucht das JWT-Token zu validieren
+        try 
+        {
             Jwts.parser().setSigningKey(jwtSecret)
                 .parseClaimsJws(authToken);
             return true;
-        } catch (SignatureException e) {
+        }
+        //Nicht validierbares JWT-Token
+        catch (SignatureException e)
+        {
             logger.error("Invalid JWT signature: {}", e.getMessage());
-        } catch (MalformedJwtException e) {
+        }
+        //Falsches JWT-Token
+        catch (MalformedJwtException e)
+        {
             logger.error("Invalid JWT token: {}", e.getMessage());
-        } catch (ExpiredJwtException e) {
+        }
+        //Abgelaufenes JWT-Token
+        catch (ExpiredJwtException e)
+        {
             logger.error("JWT token is expired: {}", e.getMessage());
-        } catch (UnsupportedJwtException e) {
+        }
+        //Nicht unterstütztes JWT-Token
+        catch (UnsupportedJwtException e)
+        {
             logger.error("JWT token is unsupported: {}",
                 e.getMessage());
-        } catch (IllegalArgumentException e) {
+        }
+        //Leerer JWT-Token
+        catch (IllegalArgumentException e)
+        {
             logger.error("JWT claims string is empty: {}",
                 e.getMessage());
         }
         return false;
     }
+    
 }

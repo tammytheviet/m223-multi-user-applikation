@@ -2,6 +2,19 @@ package ch.wiss.pruefung_294_295.response;
 
 import java.util.List;
 
+/**
+ * Diese Klasse wird verwendet, um die Antwort des Tokens zu generieren.
+ * @class JwtResponse
+ * @author Fabio Facundo & Tam Lai Nguyen
+ * @version 1.0
+ * 
+ * @param token: Token
+ * @param type: Typ des Tokens
+ * @param id: ID des Benutzers
+ * @param username: Benutzername des Benutzers
+ * @param email: E-Mail des Benutzers
+ * @param roles: Rollen des Benutzers
+ */
 public class JwtResponse {
     private String token;
     private String type = "Bearer";

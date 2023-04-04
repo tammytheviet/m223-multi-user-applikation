@@ -1,7 +1,8 @@
 package ch.wiss.pruefung_294_295.model;
 /**
- * @class Chapter
- * @author Fabio Facundo & Tam Nguyen
+ * Diese Klasse ist für die Rollen der Benutzer zuständig.
+ * @class ERole
+ * @author Fabio Facundo & Tam Lai Nguyen
  * @version 1.0 
  */
 public enum ERole {
