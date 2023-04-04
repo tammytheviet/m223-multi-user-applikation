@@ -24,63 +24,77 @@ import ch.wiss.pruefung_294_295.exceptions.MangaLoadException;
 import ch.wiss.pruefung_294_295.model.Manga;
 import ch.wiss.pruefung_294_295.repository.MangaRepository;
 
+/**
+ * Diese Klasse wird verwendet um die REST-API für die Mangas zu definieren.
+ * @class MangaController
+ * @author Fabio Facundo & Tam Lai Nguyen
+ * @version 1.0
+ * 
+ * @param mangaRepository: MangaRepository
+ * @param manga: Manga
+ */
 @CrossOrigin(origins = "http://localhost:3000")
-@RestController // This means that this class is a Controller
-@RequestMapping(path = "/manga") // This means URL's start with /manga (after Application path)
+@RestController
+@RequestMapping(path = "/manga")
 @Transactional
-public class MangaController {
-
-	/**
-	 * Wire Manga Repository
-	 */
+public class MangaController 
+{
+	//Objekt von der Klasse MangaRepository 'mangaRepository'
 	@Autowired
 	private MangaRepository mangaRepository;
 
 	/**
-	 * Creates new Manga
-	 * 
+	 * Erstellt einen neuen Manga
 	 * @param newManga
-	 * @return
+	 * @return ResponseEntity
 	 */
-	@PostMapping(path = "") // Map ONLY Post Requests
-	public ResponseEntity<String> addNewManga(@Valid @RequestBody Manga newManga) {
-		try {
+	@PostMapping(path = "")
+	public ResponseEntity<String> addNewManga(@Valid @RequestBody Manga newManga) 
+	{
+		//Speichert den neuen Manga in der Datenbank
+		try 
+		{
 			mangaRepository.save(newManga);
-		} catch (Exception ex) {
+		}
+		catch (Exception ex) 
+		{
 			throw new MangaCouldNotBeSavedException(newManga.getTitel());
 		}
-
 		return ResponseEntity.ok("Saved");
 	}
 		
 	/**
-	 * Lists all mangas
-	 * 
-	 * @return all mangas
+	 * Zeigt alle Mangas an
+	 * @return ResponseEntity
 	 */
 	@GetMapping(path = "")
-	public ResponseEntity<Iterable<Manga>> getAllMangas() {
+	public ResponseEntity<Iterable<Manga>> getAllMangas() 
+	{
 		Iterable<Manga> mangas = null;
 
-		try {
+		//Lädt alle Mangas aus der Datenbank
+		try 
+		{
 			mangas = mangaRepository.findAll();
-		} catch (Exception ex) {
+		} 
+		catch (Exception ex) 
+		{
 			throw new MangaLoadException();
 		}
-
 		return ResponseEntity.ok(mangas);
 	}
 	
 	/**
-	 * Deletes existing manga
-	 * 
+	 * Löscht einen Manga
 	 * @param id
-	 * @return
+	 * @return ResponseEntity
 	 */
-	@DeleteMapping(path = "") //DELETE ONLY Request
+	@DeleteMapping(path = "")
     public ResponseEntity<String> deleteManga(@RequestParam int id)
     {
-        try 
+
+		//Löscht den Manga aus der Datenbank
+        try
         {
             mangaRepository.deleteById(id);
         } 
@@ -88,24 +102,22 @@ public class MangaController {
         {
             throw new MangaCouldNotBeDeletedException(id);
         }
-
         return ResponseEntity.ok("Deleted");
-
     }
 	
 	/**
-	 * Updates existing manga
-	 * 
+	 * Aktualisiert einen Manga
 	 * @param id
 	 * @param mangaInfos
-	 * @return
+	 * @return ResponseEntity
 	 */
 	@PutMapping(path = "/{id}") // UPDATE ONLY Request
     public @ResponseBody ResponseEntity<String> updateManga(@PathVariable (value = "id") int id, @RequestBody Manga mangaInfos) 
 	{
-
+		//Lädt den Manga aus der Datenbank
 		Manga manga = mangaRepository.findById(id).get();
 
+		//Aktualisiert den Manga in der Datenbank
         try 
 		{
 			manga.setTitel(mangaInfos.getTitel());
@@ -120,8 +132,6 @@ public class MangaController {
 		{
             throw new MangaCouldNotBeUpdatedException(manga.getTitel());
         }
-
 		return ResponseEntity.ok("Updated");
-
 	}
 }
