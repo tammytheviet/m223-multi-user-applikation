@@ -7,13 +7,13 @@ const AccountDetails = () => {
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
-        const username = getUsername();
+        const userToken = getCurrentUserToken();
 
         fetch('http://localhost:8080/api/auth/account', {
             method: 'GET',
             headers: {
-                Username: username
-            },
+                Authorization: `Bearer ${userToken}`
+            }
         })
             .then((res) => res.json())
             .then((data) => setUserData(data))
