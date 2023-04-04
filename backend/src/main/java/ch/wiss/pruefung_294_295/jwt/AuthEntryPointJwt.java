@@ -12,22 +12,24 @@ import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
 
 /**
- * Handle Authentication Exception
- * override the commence() method. 
- * This method is triggered anytime an unauthenticated User requests a secured HTTP resource 
- * and an AuthenticationException is thrown
+ * Diese Klasse wird verwendet, um die Anmeldung und Registrierung zu ermöglichen.
+ * @class AuthEntryPointJwt
+ * @author Fabio Facundo & Tam Lai Nguyen
+ * @version 1.0
+ * @param request: HttpServletRequest
+ * @param response: HttpServletResponse
  */
-
 @Component
-public class AuthEntryPointJwt implements AuthenticationEntryPoint {
+public class AuthEntryPointJwt implements AuthenticationEntryPoint 
+{
+    //Objekt von der Klasse Logger 'logger'
     private static final Logger logger = LoggerFactory.getLogger(AuthEntryPointJwt.class);
-    /**
-     * commence heisst "anfangen"
-     */
+
+    //Methode, die die Anmeldung und Registrierung ermöglicht
     @Override
-    public void commence(HttpServletRequest request,
-        HttpServletResponse response, AuthenticationException authException)
-    throws IOException, javax.servlet.ServletException {
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, javax.servlet.ServletException 
+    {
+        //Ausgabe der Fehlermeldung
         logger.error("Unauthorized error: {}", authException.getMessage());
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED, "Error: Unauthorized");
     }
