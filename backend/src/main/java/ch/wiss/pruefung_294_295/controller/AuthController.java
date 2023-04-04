@@ -34,107 +34,125 @@ import ch.wiss.pruefung_294_295.service.UserDetailsImpl;
 
 import org.springframework.web.bind.annotation.GetMapping;
 
-
-@CrossOrigin(origins = "*", maxAge = 3600)
+/**
+ * Diese Klasse dient zur Authentifizierung des Benutzers
+ * @class AuthController
+ * @author Fabio Facundo & Tam Lai Nguyen
+ * @version 1.0
+ */
+@CrossOrigin(origins = "localhost:8080/", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 @Transactional
-public class AuthController {
+public class AuthController 
+{
 
+    //Objekt von der Klasse AuthenticationManager 'authenticationManager'
     @Autowired
     AuthenticationManager authenticationManager;
 
+    //Objekt von der Klasse UserRepository 'userRepository'
     @Autowired
     UserRepository userRepository;
 
+    //Objekt von der Klasse RoleRepository 'roleRepository'
     @Autowired
     RoleRepository roleRepository;
 
+    //Objekt von der Klasse PasswordEncoder 'encoder'
     @Autowired
     PasswordEncoder encoder;
 
+    //Objekt von der Klasse JwtUtils 'jwtUtils'
     @Autowired
     JwtUtils jwtUtils;
 
     /**
-     * 
-     * @param loginRequest
-     * @return ResponseEntity
-     * Signin with existing user
+     * POST-Methode, um den Benutzer zu authentifizieren
+     * @param loginRequest: LoginRequest
+     * @return: ResponseEntity
      */
-
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
-        //Authentication of the user
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) 
+    {
+        //Authentifizierung des Benutzers
         Authentication authentication = authenticationManager.authenticate(
             new UsernamePasswordAuthenticationToken(loginRequest.getUsername(),
                 loginRequest.getPassword()));
 
-        //Setting the Authentication inside securityContextHolder
+        //Setzt die Authentifizierung
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
-        //Creation of the JSON Web Token
+        //Generiert den JWT-Token
         String jwt = jwtUtils.generateJwtToken(authentication);
 
-        //Extracts the data from UserDetailsImpl to Authentication
+        //Holt sich die UserDetails
         UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 
-        //Extracts the Authorities and Roles from authenticated User, and puts it inside a list which gives it as an JwtResponse back
+        //Erstellt eine Liste mit den Rollen
         List < String > roles = userDetails.getAuthorities().stream()
             .map(item -> item.getAuthority())
             .collect(Collectors.toList());
+
+        //Gibt die Antwort zurück
         return ResponseEntity.ok(new JwtResponse(jwt,
             userDetails.getId(),
             userDetails.getUsername(),
             userDetails.getEmail(),
             roles));
-
     }
 
     /**
-     * 
-     * @param signUpRequest
-     * @return ResponseEntity
-     * Creating a User
+     * POST-Methode, um den Benutzer zu registrieren
+     * @param signUpRequest: SignupRequest
+     * @return: ResponseEntity
      */
-
     @PostMapping("/signup")
-    public ResponseEntity <?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-        // Checks if the username exists
+    public ResponseEntity <?> registerUser(@Valid @RequestBody SignupRequest signUpRequest)
+    {
+        //Checkt, ob der Benutzername bereits existiert
         if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             return ResponseEntity
                 .badRequest()
                 .body(new MessageResponse("Error: Username is already taken!"));
         }
 
-        // Checks if the email exists
+        //Checkt, ob die Email bereits existiert
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
             return ResponseEntity
                 .badRequest()
                 .body(new MessageResponse("Error: Email is already in use!"));
         }
 
-        // Creating a new User
+        //Erstellt einen neuen Benutzer
         User user = new User(signUpRequest.getUsername(),
                             signUpRequest.getEmail(), 
                             encoder.encode(signUpRequest.getPassword()));
-        // Sets the userroles
+
+        //Setzt die Rollen
         Set <String> strRoles = signUpRequest.getRole();
         Set <Role> roles = new HashSet<> ();
-        // Checks, if the userrole is given
-        if (strRoles == null) {
+
+        //Checkt, ob die Rolle null ist
+        if (strRoles == null)
+        {
             Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
-        } else {
-            strRoles.forEach(role -> {
-                switch (role) {
-                    // Checks, if the userrole is "admin" or "user"
+        }
+        
+        else
+        {
+            strRoles.forEach(role -> 
+            {
+                switch (role) 
+                {
+                    //Checkt, ob die Rolle 'admin' oder 'user' ist
                     case "admin":
                         Role adminRole = roleRepository.findByName(ERole.ROLE_ADMIN)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
                         roles.add(adminRole);
+
                     default:
                         Role userRole = roleRepository.findByName(ERole.ROLE_USER)
                             .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
@@ -142,15 +160,24 @@ public class AuthController {
                 }
             });
         }
-        // Saves the user inside the database
+
+        //Speichert den Benutzer in der Datenbank
         user.setRoles(roles);
         userRepository.save(user);
-        // Gives the successmessage back
+
+        //Gibt die Antwort zurück
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
     }
 
+    /**
+     * GET-Methode, um den Benutzer zu holen
+     * @param authentication: Authentication
+     * @return: ResponseEntity
+     */
     @GetMapping("/account")
-    public ResponseEntity<Optional<User>> getUser(Authentication authentication) {
+    public ResponseEntity<Optional<User>> getUser(Authentication authentication) 
+    {
+        //Holt sich den Benutzernamen
 		Optional<User> user = null;
         String username = authentication.getName();
 
@@ -158,13 +185,4 @@ public class AuthController {
 
 		return ResponseEntity.ok(user);
 	}
-
-    /*public ResponseEntity<Optional<User>> getUser(@RequestBody String username) {
-		Optional<User> user = null;
-        System.out.println(username);
-
-			user = userRepository.findByUsername(username);
-
-		return ResponseEntity.ok(user);
-	} */
 }
