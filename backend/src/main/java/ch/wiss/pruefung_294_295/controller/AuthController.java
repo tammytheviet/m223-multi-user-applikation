@@ -36,6 +36,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 /**
  * Diese Klasse dient zur Authentifizierung des Benutzers
+ * 
  * @class AuthController
  * @author Fabio Facundo & Tam Lai Nguyen
  * @version 1.0
@@ -69,7 +70,9 @@ public class AuthController
 
     /**
      * POST-Methode, um den Benutzer zu authentifizieren
+     * 
      * @param loginRequest: LoginRequest
+     * 
      * @return: ResponseEntity
      */
     @PostMapping("/signin")
@@ -104,7 +107,9 @@ public class AuthController
 
     /**
      * POST-Methode, um den Benutzer zu registrieren
+     * 
      * @param signUpRequest: SignupRequest
+     * 
      * @return: ResponseEntity
      */
     @PostMapping("/signup")
@@ -140,7 +145,7 @@ public class AuthController
                 .orElseThrow(() -> new RuntimeException("Error: Role is not found."));
             roles.add(userRole);
         }
-        
+
         else
         {
             strRoles.forEach(role -> 
@@ -171,7 +176,9 @@ public class AuthController
 
     /**
      * GET-Methode, um den Benutzer zu holen
+     * 
      * @param authentication: Authentication
+     * 
      * @return: ResponseEntity
      */
     @GetMapping("/account")
