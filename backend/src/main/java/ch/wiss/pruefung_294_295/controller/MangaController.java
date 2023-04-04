@@ -26,6 +26,7 @@ import ch.wiss.pruefung_294_295.repository.MangaRepository;
 
 /**
  * Diese Klasse wird verwendet um die REST-API für die Mangas zu definieren.
+ * 
  * @class MangaController
  * @author Fabio Facundo & Tam Lai Nguyen
  * @version 1.0
@@ -45,7 +46,9 @@ public class MangaController
 
 	/**
 	 * Erstellt einen neuen Manga
+	 * 
 	 * @param newManga
+	 * 
 	 * @return ResponseEntity
 	 */
 	@PostMapping(path = "")
@@ -65,6 +68,7 @@ public class MangaController
 		
 	/**
 	 * Zeigt alle Mangas an
+	 * 
 	 * @return ResponseEntity
 	 */
 	@GetMapping(path = "")
@@ -86,7 +90,9 @@ public class MangaController
 	
 	/**
 	 * Löscht einen Manga
+	 * 
 	 * @param id
+	 * 
 	 * @return ResponseEntity
 	 */
 	@DeleteMapping(path = "")
@@ -107,8 +113,11 @@ public class MangaController
 	
 	/**
 	 * Aktualisiert einen Manga
+	 * 
 	 * @param id
+	 * 
 	 * @param mangaInfos
+	 * 
 	 * @return ResponseEntity
 	 */
 	@PutMapping(path = "/{id}") // UPDATE ONLY Request
