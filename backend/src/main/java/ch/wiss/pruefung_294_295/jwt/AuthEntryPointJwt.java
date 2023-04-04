@@ -13,9 +13,11 @@ import org.springframework.stereotype.Component;
 
 /**
  * Diese Klasse wird verwendet, um die Anmeldung und Registrierung zu ermöglichen.
+ * 
  * @class AuthEntryPointJwt
  * @author Fabio Facundo & Tam Lai Nguyen
  * @version 1.0
+ * 
  * @param request: HttpServletRequest
  * @param response: HttpServletResponse
  */
