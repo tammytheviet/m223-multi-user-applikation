@@ -56,10 +56,10 @@ public class JwtUtils
         //Holt den Benutzernamen aus dem Auth-Objekt
         UserDetailsImpl userPrincipal = (UserDetailsImpl)
 
-        //Erstellt das JWT-Token
+        //Erstellt den JWT-Token
         authentication.getPrincipal();
 
-        //Gibt das JWT-Token zurück
+        //Gibt den JWT-Token zurück
         return Jwts.builder()
             .setSubject((userPrincipal.getUsername()))
             .setIssuedAt(new Date())

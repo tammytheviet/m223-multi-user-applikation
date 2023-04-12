@@ -35,12 +35,15 @@ export default function Register(){
             body: JSON.stringify({
                 "username": username,
                 "password": password,
-                "email": email
+                "email": email,
+                "role": [
+                    "ROLE_USER"
+                ]
             })
         }).then(res => {
             if (res.ok){
                 console.log("Success")
-                navigate("/AccountDetails")
+                navigate("/Login")
             } else {
                 console.log("Error")
             }
