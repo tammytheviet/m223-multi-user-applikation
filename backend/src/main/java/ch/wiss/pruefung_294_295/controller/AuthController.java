@@ -41,7 +41,7 @@ import org.springframework.web.bind.annotation.GetMapping;
  * @author Fabio Facundo & Tam Lai Nguyen
  * @version 1.0
  */
-@CrossOrigin(origins = "localhost:8080/", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
 @Transactional
