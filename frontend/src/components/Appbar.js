@@ -16,8 +16,7 @@ class AppBar extends React.Component
       super(props);
       this.logOut = this.logOut.bind(this);
       this.state = {
-         showModeratorBoard: false,
-         showAdminBoard: false,
+         showAdmin: false,
          currentUser: undefined,
       };
    }
@@ -30,7 +29,7 @@ class AppBar extends React.Component
          this.setState(
          {
             currentUser: user,
-            showAdminBoard: user.roles.includes("ROLE_ADMIN"),
+            showAdmin: user.roles.includes("ROLE_ADMIN"),
          });
       }
    }
@@ -41,13 +40,13 @@ class AppBar extends React.Component
       AuthService.logout();
       this.setState(
       {
-         showAdminBoard: false,
+         showAdmin: false,
          currentUser: undefined,
       });
    }
 
    render() {
-      const { currentUser, showAdminBoard } = this.state;
+      const { currentUser, showAdmin } = this.state;
 
       return(
         <Box sx={{ flexGrow: 1 }}>
@@ -55,31 +54,33 @@ class AppBar extends React.Component
           <Toolbar>
               <Button color="inherit">
                 <Link to="/mangalist">Manga List</Link>
-                </Button>
+              </Button>
+            {showAdmin && (
+              <Button color="inherit">
+                <Link to={"/admin"}> Admin Board </Link>
+              </Button>
+            )}
+            {showAdmin && (
               <Button color="inherit">
                 <Link to="/manga">Add Manga</Link>
-                </Button>
-            {showAdminBoard && (
-            <Button color="inherit">
-            <Link to={"/admin"}> Admin Board </Link>
-            </Button>
+              </Button>
             )}
             {currentUser ? (
             <div className="navbar-nav ml-auto">
             <Button color="inherit">
-            <Link to={"/accountdetails"}> {currentUser.username} </Link>
+              <Link to={"/accountdetails"}> {currentUser.username} </Link>
             </Button>
             <Button color="inherit">
-            <a href="/login" onClick={this.logOut}> LogOut </a>
+              <a href="/login" onClick={this.logOut}> LogOut </a>
             </Button>
             </div>
             ) : (
             <div className="navbar-nav ml-auto">
             <Button color="inherit">
-            <Link to={"/login"}> Login </Link>
+              <Link to={"/login"}> Login </Link>
             </Button>
             <Button color="inherit">
-            <Link to={"/register"}> Register </Link>
+              <Link to={"/register"}> Register </Link>
             </Button>
             </div>
             )}
