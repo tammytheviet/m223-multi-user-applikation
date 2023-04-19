@@ -8,6 +8,7 @@ import Chapter from "./components/Chapter";
 import Login from "./components/Login";
 import Register from "./components/Register";
 import AccountDetails from "./components/AccountDetails";
+import Admin from "./components/Admin";
 
 const App = () => {
   return (
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="mangaupdate" element={<MangaUpdate />} />
           <Route path="chapter" element={<Chapter />} />
           <Route path="accountdetails" element={<AccountDetails />} />
+          <Route path="admin" element={<Admin />} />
           </Route>
         </Routes>
       </BrowserRouter>
