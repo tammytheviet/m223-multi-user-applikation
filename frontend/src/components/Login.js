@@ -19,7 +19,7 @@ export default function Login() {
     const paperStyle={padding:'50px 20px', width:600,margin:"20px auto"};
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
-    const [error, setError] = useState(null);
+    const [setError] = useState(null);
     const navigate = useNavigate();
     const classes = useStyles();
 

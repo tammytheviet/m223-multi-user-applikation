@@ -1,5 +1,4 @@
 import "./App.css"
-import { createRoot } from 'react-dom/client';
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Manga from "./components/Manga";
 import MangaList from "./components/MangaList";
@@ -10,7 +9,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import AccountDetails from "./components/AccountDetails";
 
-export default function App() {
+const App = () => {
   return (
     <div className="App">
       <BrowserRouter>
@@ -30,6 +29,4 @@ export default function App() {
   );
 }
 
-const container = document.getElementById("root");
-const root = createRoot(container);
-root.render(<App />);
+export default App;
