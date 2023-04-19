@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { getCurrentUserToken, getUsername } from '../auth.service';
+import { getCurrentUserToken } from '../auth.service';
 
 const AccountDetails = () => {
-    const navigate = useNavigate();
     const [userData, setUserData] = useState(null);
 
     useEffect(() => {
