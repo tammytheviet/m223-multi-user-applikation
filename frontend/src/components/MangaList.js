@@ -4,22 +4,29 @@ import {Link } from "react-router-dom";
 import Chapter from "./Chapter";
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
+import AuthService from '../auth.service';
 
 export default function Manga() {
     const paperStyle={padding:'50px 20px', width:600,margin:"20px auto"}
     const[manga,setManga]=useState([])
     const[chapter,setChapter]=useState([])
     const [open,setOpen]=useState(false);
+    const [ currentUser, setCurrentUser ] = useState();
+    const [ showAdmin, setShowAdmin ] = useState(false);
 
-useEffect(()=>{
+  useEffect(()=>{
 
   fetch("http://localhost:8080/manga")
   .then(res=>res.json())
   .then((result)=>{
     setManga(result);
-  }
+  })
 
-)
+  const user = AuthService.getCurrentUser();
+  if (user) {
+      setCurrentUser(user)
+      setShowAdmin(user.roles.includes("ROLE_ADMIN"))
+  }
 },
 [])
 
@@ -61,15 +68,21 @@ useEffect(()=>{
          Status: {manga.status}<br/>
          Veröffentlichungsdatum: {manga.veröffentlichungsdatum}<br/>
          Chapters: {chapter.map((chapter)=>{return chapter.inhalt}).join(', ')}<br/>
-         <Button variant="contained" color="primary">
+         {showAdmin && (
+          <Button variant="contained" color="primary">
             <Link to="/mangaupdate">Update</Link>
-         </Button>
+          </Button>
+         )}
+         {showAdmin && (
          <Button variant="contained" color="secondary" onClick={() => remove(manga.id)}>
             <DeleteIcon/>
          </Button>
+         )}
+         {showAdmin && (
          <Button variant="contained" color="default" onClick={() => setOpen(true)}>
             <AddIcon />{open && <Chapter id={manga.id}/>}
          </Button>
+         )}
         </Paper>
       ))
 }
