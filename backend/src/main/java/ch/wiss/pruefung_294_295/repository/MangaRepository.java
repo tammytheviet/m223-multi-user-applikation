@@ -1,5 +1,7 @@
 package ch.wiss.pruefung_294_295.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 import ch.wiss.pruefung_294_295.model.Manga;
@@ -11,5 +13,7 @@ import ch.wiss.pruefung_294_295.model.Manga;
  * @version 1.0
  */
 public interface MangaRepository extends CrudRepository < Manga, Integer > {
-	Manga deleteById(int id);
+	public Manga deleteById(int id);
+
+	public Optional<Manga> findByTitel(String Titel);
 }

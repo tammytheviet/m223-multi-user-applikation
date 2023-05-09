@@ -54,6 +54,18 @@ public class Manga {
 
 	private Date veröffentlichungsdatum;
 
+	
+
+	public Manga(String titel, String genre, String zeichner, String autor, String status,
+			Date veröffentlichungsdatum) {
+		this.titel = titel;
+		this.genre = genre;
+		this.zeichner = zeichner;
+		this.autor = autor;
+		this.status = status;
+		this.veröffentlichungsdatum = veröffentlichungsdatum;
+	}
+
 	public Integer getId() {
 		return id;
 	}

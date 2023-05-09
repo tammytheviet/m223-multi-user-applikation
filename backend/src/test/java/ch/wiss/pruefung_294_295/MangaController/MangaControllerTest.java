@@ -7,10 +7,17 @@ import org.springframework.test.context.ActiveProfiles;
 
 import ch.wiss.pruefung_294_295.controller.ChapterController;
 import ch.wiss.pruefung_294_295.controller.MangaController;
+import ch.wiss.pruefung_294_295.model.Manga;
 import ch.wiss.pruefung_294_295.repository.ChapterRepository;
 import ch.wiss.pruefung_294_295.repository.MangaRepository;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
+
+import java.sql.Date;
+import java.util.Optional;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -24,23 +31,63 @@ public class MangaControllerTest {
 	
 	@Mock MangaController mangaController;
 	@Mock ChapterController chapterController;
-	
-	String exampleManga = "{\"titel\":\"Testtitel\",\"genre\":\"Testgenre\",\"zeichner\":\"Testzeichner\",\"autor\":\"Testautor\",\"status\":\"Teststatus\",\"veröffentlichungsdatum\":\"2018-03-29\"}";
+
+	// testManga wird für alle Tests verwendet
+	Manga testManga = new Manga("Testname", 
+								"Testgenre", 
+								"Testzeichner", 
+								"Testautor", 
+								"Teststatus", 
+									new Date(2019-03-23)
+								);
 
 	@Test
 	public void whenMangaControllerInjected_thenNotNull() throws Exception {
 		assertThat(mangaController).isNotNull(); //hier wird geprüft, ob unser SUT existiert
 	}
 	
-	/*@Test
-    public void testFindAll() 
-    {
-        // given
-		Manga manga1 = new Manga("Testtitel","Testgenre","Testzeichner","Testautor","Teststatus",2018-03-29,true,false);
-		mangaRepository.save(manga1);
- 
-        // when
-        Manga result = mangaController.getAllMangas();
-    }*/
-	
+	@Test
+    public void testAddManga() 
+    {	
+		// given
+		final String testTitel = "Testname";
+
+		// when
+		mangaRepository.save(testManga);
+
+		// then
+		Optional<Manga> result = mangaRepository.findByTitel(testTitel);
+		assertNotNull(result);
+    }
+
+	@Test
+	public void testDeleteManga(){
+		// given
+		final String testTitel = "Testname";
+		mangaRepository.save(testManga);
+
+		// when
+		mangaRepository.delete(testManga);
+
+		// then
+		Optional<Manga> result = mangaRepository.findByTitel(testTitel);
+		assertEquals(Optional.empty(), result);
+	}
+
+	@Test
+	public void testUpdateManga() {
+		// given
+		final String oldTitel = "Testname";
+		final String newTitel = "updated";
+		mangaRepository.save(testManga);
+
+		// when
+		Manga updatedManga = mangaRepository.findByTitel(oldTitel).get();
+		updatedManga.setTitel(newTitel);
+		mangaRepository.save(updatedManga);
+
+		// then
+		Optional<Manga> result = mangaRepository.findByTitel(newTitel);
+		assertEquals(newTitel, result.get().getTitel());
+	}
 }
