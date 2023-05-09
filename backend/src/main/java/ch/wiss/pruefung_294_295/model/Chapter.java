@@ -41,6 +41,11 @@ public class Chapter {
 	@JsonBackReference
 	private Manga manga;
 
+	public Chapter(String inhalt, Manga manga) {
+		this.inhalt = inhalt;
+		this.manga = manga;
+	}
+
 	public Manga getManga() {
 		return manga;
 	}

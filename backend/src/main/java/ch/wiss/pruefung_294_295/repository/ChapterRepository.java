@@ -1,5 +1,7 @@
 package ch.wiss.pruefung_294_295.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.repository.CrudRepository;
 
 import ch.wiss.pruefung_294_295.model.Chapter;
@@ -12,5 +14,7 @@ import ch.wiss.pruefung_294_295.model.Chapter;
  */
 public interface ChapterRepository extends CrudRepository < Chapter, Integer > {
     Chapter deleteAllByMangaId(int id);
+
+	public Optional<Chapter> findByInhalt(String Inhalt);
 
 }

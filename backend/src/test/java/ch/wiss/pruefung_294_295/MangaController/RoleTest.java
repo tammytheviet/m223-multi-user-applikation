@@ -35,19 +35,33 @@ public class RoleTest {
     }
 
     @Test
-    public void testAddEntry() {
+    public void testAddRole() {
         // given
         final ERole rolename = ERole.ROLE_ADMIN;
+        Role testRole = new Role(rolename);
 
         //when
-        Role test = new Role(rolename);
-
-        roleRepository.save(test);
+        roleRepository.save(testRole);
 
         //then
         Optional<Role> result = roleRepository.findByName(rolename);
-        assertNotNull(result);
         assertEquals(result.get().getName(), rolename);
     }
+
+    @Test
+	public void testDeleteUser(){
+		// given
+        // given
+        final ERole rolename = ERole.ROLE_ADMIN;
+        Role testRole = new Role(rolename);
+        roleRepository.save(testRole);
+		
+        // when
+		roleRepository.delete(testRole);
+
+		// then
+		Optional<Role> result = roleRepository.findByName(rolename);
+		assertEquals(Optional.empty(), result);
+	}
     
 }

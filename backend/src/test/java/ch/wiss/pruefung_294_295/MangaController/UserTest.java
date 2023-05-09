@@ -34,20 +34,36 @@ public class UserTest {
     }
 
     @Test
-    public void testAddEntry() {
+    public void testRegisterUser() {
         // given
-        final String username = "test";
-        final String email = "test@test.com";
-        final String password = "test123";
+        final String testUsername = "test";
+        final String testEmail = "test@test.com";
+        final String testPassword = "test123";
+        User testUser = new User(testUsername, testEmail, testPassword);
 
         //when
-        User test = new User(username, email, password);
-
-        userRepository.save(test);
+        userRepository.save(testUser);
 
         //then
-        Optional<User> result = userRepository.findByUsername(username);
+        Optional<User> result = userRepository.findByUsername(testUsername);
         assertNotNull(result);
-        assertEquals(result.get().getUsername(), username);
+        assertEquals(result.get().getUsername(), testUsername);
     }
+
+    @Test
+	public void testDeleteUser(){
+		// given
+        final String testUsername = "test";
+        final String testEmail = "test@test.com";
+        final String testPassword = "test123";
+        User testUser = new User(testUsername, testEmail, testPassword);
+        userRepository.save(testUser);
+		
+        // when
+		userRepository.delete(testUser);
+
+		// then
+		Optional<User> result = userRepository.findByUsername(testUsername);
+		assertEquals(Optional.empty(), result);
+	}
 }
