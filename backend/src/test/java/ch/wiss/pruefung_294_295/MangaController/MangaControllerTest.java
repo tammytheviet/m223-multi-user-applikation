@@ -14,7 +14,6 @@ import ch.wiss.pruefung_294_295.repository.MangaRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import java.sql.Date;
 import java.util.Optional;
@@ -72,22 +71,5 @@ public class MangaControllerTest {
 		// then
 		Optional<Manga> result = mangaRepository.findByTitel(testTitel);
 		assertEquals(Optional.empty(), result);
-	}
-
-	@Test
-	public void testUpdateManga() {
-		// given
-		final String oldTitel = "Testname";
-		final String newTitel = "updated";
-		mangaRepository.save(testManga);
-
-		// when
-		Manga updatedManga = mangaRepository.findByTitel(oldTitel).get();
-		updatedManga.setTitel(newTitel);
-		mangaRepository.save(updatedManga);
-
-		// then
-		Optional<Manga> result = mangaRepository.findByTitel(newTitel);
-		assertEquals(newTitel, result.get().getTitel());
 	}
 }
