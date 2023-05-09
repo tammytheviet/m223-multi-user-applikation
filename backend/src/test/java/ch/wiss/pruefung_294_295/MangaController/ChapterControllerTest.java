@@ -14,6 +14,7 @@ import ch.wiss.pruefung_294_295.repository.MangaRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.Mock;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest
@@ -23,8 +24,8 @@ public class ChapterControllerTest {
 	@MockBean private MangaRepository mangaRepository;
 	@MockBean private ChapterRepository chapterRepository;
 	
-	@Autowired MangaController mangaController;
-	@Autowired ChapterController chapterController;
+	@Mock MangaController mangaController;
+	@Mock ChapterController chapterController;
 	
 	@Test
 	public void whenChapterControllerInjected_thenNotNull() throws Exception {

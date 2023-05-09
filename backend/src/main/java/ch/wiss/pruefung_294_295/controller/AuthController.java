@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.PathVariable;
 
+// import ch.wiss.pruefung_294_295.exceptions.UserCouldNotBeUpdatedException;
 import ch.wiss.pruefung_294_295.jwt.JwtUtils;
 import ch.wiss.pruefung_294_295.model.*;
 import ch.wiss.pruefung_294_295.repository.RoleRepository;

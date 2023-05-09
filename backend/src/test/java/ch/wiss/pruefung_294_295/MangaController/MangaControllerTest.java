@@ -13,6 +13,7 @@ import ch.wiss.pruefung_294_295.repository.MangaRepository;
 import static org.assertj.core.api.Assertions.assertThat;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
 @SpringBootTest
 @ActiveProfiles("test")
@@ -21,10 +22,10 @@ public class MangaControllerTest {
 	@MockBean private MangaRepository mangaRepository;
 	@MockBean private ChapterRepository chapterRepository;
 	
-	@Autowired MangaController mangaController;
-	@Autowired ChapterController chapterController;
+	@Mock MangaController mangaController;
+	@Mock ChapterController chapterController;
 	
-	String exampleManga = "{\"titel\":\"Testtitel\",\"genre\":\"Testgenre\",\"zeichner\":\"Testzeichner\",\"autor\":\"Testautor\",\"status\":\"Teststatus\",\"veröffentlichungsdatum\":\"2018-03-29\",\"gelesen\":\"true\",\"lesezeichen\":\"false\"}";
+	String exampleManga = "{\"titel\":\"Testtitel\",\"genre\":\"Testgenre\",\"zeichner\":\"Testzeichner\",\"autor\":\"Testautor\",\"status\":\"Teststatus\",\"veröffentlichungsdatum\":\"2018-03-29\"}";
 
 	@Test
 	public void whenMangaControllerInjected_thenNotNull() throws Exception {

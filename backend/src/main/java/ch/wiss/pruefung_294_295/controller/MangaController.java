@@ -34,7 +34,7 @@ import ch.wiss.pruefung_294_295.repository.MangaRepository;
  * @param mangaRepository: MangaRepository
  * @param manga: Manga
  */
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "/manga")
 @Transactional

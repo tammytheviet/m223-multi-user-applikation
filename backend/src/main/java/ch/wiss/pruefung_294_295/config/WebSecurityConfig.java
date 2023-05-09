@@ -46,12 +46,6 @@ public class WebSecurityConfig
         "/chapter"
     };
 
-    //Array, dass die Pfade für die geschützten Endpunkte hat
-    private final static String[] SECURE = 
-    {
-        "/question"
-    };
-
     //Array, dass die erweiterten Rollen hat
     private final static String[] ROLES = 
     {
@@ -97,7 +91,7 @@ public class WebSecurityConfig
             .and()
             .authorizeHttpRequests((authz) ->
                 authz.antMatchers(EVERYONE).permitAll()
-                .antMatchers(SECURE).hasAnyRole(ROLES)
+                .antMatchers().hasAnyRole(ROLES)
                 .anyRequest().authenticated()
             );
         http.authenticationProvider(authenticationProvider());

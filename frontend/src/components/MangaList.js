@@ -27,8 +27,7 @@ export default function Manga() {
       setCurrentUser(user)
       setShowAdmin(user.roles.includes("ROLE_ADMIN"))
   }
-},
-[])
+},[])
 
   const remove = async (id) => {
     fetch(`http://localhost:8080/chapter?id=${id}`, {
@@ -69,7 +68,7 @@ export default function Manga() {
          Veröffentlichungsdatum: {manga.veröffentlichungsdatum}<br/>
          Chapters: {chapter.map((chapter)=>{return chapter.inhalt}).join(', ')}<br/>
          {showAdmin && (
-          <Button variant="contained" color="primary">
+          <Button variant="contained" color="primary" onClick={localStorage.mangaid = manga.id}>
             <Link to="/mangaupdate">Update</Link>
           </Button>
          )}
