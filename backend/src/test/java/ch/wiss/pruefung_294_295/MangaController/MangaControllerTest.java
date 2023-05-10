@@ -20,6 +20,20 @@ import java.util.Optional;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 
+/**
+ * @class MangaControllerTest
+ * @author Fabio Facundo & Tam lai Nguyen
+ * @version v1.0
+ * 
+ * Hier werden die verschiedenen funktionen des Repositorys getestet
+ * 
+ * @SpringBootTest erstellt den ApplicationContext welcher für die Tests verwendet wird.
+ * @ActiveProfiles bestimmt, welches Bean Profil für das laden der ApplicationContext verwendet wird.
+ * @MockBean wird verwendet, um ein Mock zu erstellen. Dieser Mock wird für die Tests verwendet, um nicht die echte Arbeitsumgebung mit den Tests zu beeinflussen.
+ * @Mock wird verwendet, um ein Mock zu erstellen. Dieser Mock wird für die Tests verwendet, um nicht die echte Arbeitsumgebung mit den Tests zu beeinflussen.
+ * @Test deklariert, dass dies ein Test ist, welcher auch ausgeführt werden kann.
+ */
+
 @SpringBootTest
 @ActiveProfiles("test")
 public class MangaControllerTest {

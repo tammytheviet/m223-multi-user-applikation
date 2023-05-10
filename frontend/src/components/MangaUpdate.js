@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import TextField from '@material-ui/core/TextField';
 import { Container ,Paper,Button} from '@material-ui/core';
-import AuthService from '../auth.service';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -23,7 +22,6 @@ export default function Manga() {
     const[updatedVeröffentlichungsdatum,setUpdatedVeröffentlichungsdatum]=useState('')
     const[manga, setManga]=useState('')
     const classes = useStyles();
-    const [ currentUser, setCurrentUser ] = useState();
     
     useEffect(()=>{
       fetch("http://localhost:8080/manga")
@@ -31,12 +29,6 @@ export default function Manga() {
       .then((res)=>{
         setManga(res);
       })
-    
-      const user = AuthService.getCurrentUser();
-      if (user) {
-        setCurrentUser(user)
-        setShowAdmin(user.roles.includes("ROLE_ADMIN")
-      )}
     },[])
 
     const update = async (id) => {
