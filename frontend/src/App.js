@@ -1,4 +1,3 @@
-import "./App.css"
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import Manga from "./components/Manga";
 import MangaList from "./components/MangaList";
@@ -9,6 +8,7 @@ import Login from "./components/Login";
 import Register from "./components/Register";
 import AccountDetails from "./components/AccountDetails";
 import Admin from "./components/Admin";
+import "./App.css";
 
 const App = () => {
   return (

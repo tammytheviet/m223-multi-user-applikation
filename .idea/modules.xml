@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/m223-multi-user-applikation.iml" filepath="$PROJECT_DIR$/.idea/m223-multi-user-applikation.iml" />
-      <module fileurl="file://$PROJECT_DIR$/backend/pruefung_294_295.iml" filepath="$PROJECT_DIR$/backend/pruefung_294_295.iml" />
     </modules>
   </component>
 </project>
