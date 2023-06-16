@@ -1,6 +1,7 @@
 package ch.wiss.pruefung_294_295.MangaController;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Spy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
@@ -18,11 +19,8 @@ import static org.junit.jupiter.api.Assertions.*;
 @AutoConfigureTestDatabase(replace=AutoConfigureTestDatabase.Replace.NONE)
 public class RoleTest {
 
-    @Autowired
-    private TestEntityManager entityManager;
-
-    @Autowired
-    private RoleRepository roleRepository;
+    @Autowired private TestEntityManager entityManager;
+    @Spy private RoleRepository roleRepositorySpy;
 
     @Test
     public void testManager() {
@@ -31,7 +29,7 @@ public class RoleTest {
 
     @Test
     public void testRepository() {
-        assertNotNull(roleRepository);
+        assertNotNull(roleRepositorySpy);
     }
 
     @Test
@@ -41,26 +39,25 @@ public class RoleTest {
         Role testRole = new Role(rolename);
 
         //when
-        roleRepository.save(testRole);
+        roleRepositorySpy.save(testRole);
 
         //then
-        Optional<Role> result = roleRepository.findByName(rolename);
+        Optional<Role> result = roleRepositorySpy.findByName(rolename);
         assertEquals(result.get().getName(), rolename);
     }
 
     @Test
-	public void testDeleteUser(){
+	public void testDeleteRole(){
 		// given
-        // given
         final ERole rolename = ERole.ROLE_ADMIN;
         Role testRole = new Role(rolename);
-        roleRepository.save(testRole);
+        roleRepositorySpy.save(testRole);
 		
         // when
-		roleRepository.delete(testRole);
+		roleRepositorySpy.delete(testRole);
 
 		// then
-		Optional<Role> result = roleRepository.findByName(rolename);
+		Optional<Role> result = roleRepositorySpy.findByName(rolename);
 		assertEquals(Optional.empty(), result);
 	}
     
