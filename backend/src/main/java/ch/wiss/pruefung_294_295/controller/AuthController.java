@@ -189,7 +189,7 @@ public class AuthController
     public ResponseEntity<Optional<User>> getUser(Authentication authentication) 
     {
         //Holt sich den Benutzernamen
-		Optional<User> user = null;
+		Optional<User> user;
         String username = authentication.getName();
 
 			user = userRepository.findByUsername(username);

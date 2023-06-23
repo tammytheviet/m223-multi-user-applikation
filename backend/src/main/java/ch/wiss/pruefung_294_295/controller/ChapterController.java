@@ -43,7 +43,7 @@ public class ChapterController {
 
     /**
      * Creates new Chapter
-     * 
+     *
      * @param mangaId
      * @param chapter
      * @return "saved"
@@ -54,7 +54,7 @@ public class ChapterController {
     {
         Optional<Manga> manga = mangaRepository.findById(mangaId);
 
-        if (manga.isEmpty()) 
+        if (manga.isEmpty())
         {
             throw new MangaCouldNotBeFoundException(mangaId);
         }
@@ -69,10 +69,10 @@ public class ChapterController {
 
         return ResponseEntity.ok("Saved");
     }
-		
+
     /**
      * Lists all chapters
-     * 
+     *
      * @return all chapters
      */
 	@GetMapping(path = "")
@@ -81,28 +81,28 @@ public class ChapterController {
 
 		try {
 			chapters = chapterRepository.findAll();
-			
+
 		} catch (Exception ex) {
 			throw new ChapterLoadException();
 		}
 
 		return ResponseEntity.ok(chapters);
 	}
-	
+
 	/**
      * Deletes specific chapter
-     * 
+     *
      * @param id
      * @return "deleted"
      */
 	@DeleteMapping(path = "") //DELETE ONLY Request
     public ResponseEntity<String> deleteChapter(@RequestParam int id)
     {
-        try 
+        try
         {
             chapterRepository.deleteById(id);
-        } 
-        catch (Exception e) 
+        }
+        catch (Exception e)
         {
             throw new ChapterCouldNotBeDeletedException(id);
         }
@@ -110,31 +110,24 @@ public class ChapterController {
         return ResponseEntity.ok("Deleted");
 
     }
-	
+
 	/**
      * Updates specific chapter
-     * 
+     *
      * @param id
      * @param chapterInfos
      * @return "updated"
      */
 	@PutMapping(path = "/{id}") // UPDATE ONLY Request
-    public @ResponseBody ResponseEntity<String> updateChapter(@PathVariable (value = "id") Integer id, @RequestBody Chapter chapterInfos) 
-	{
+    public @ResponseBody ResponseEntity<String> updateChapter(@PathVariable (value = "id") Integer id, @RequestBody Chapter chapterInfos) {
 
-		Chapter chapter = chapterRepository.findById(id).get();
-
-        try 
-		{
-			chapter.setInhalt(chapterInfos.getInhalt());
-			chapterRepository.save(chapter);
-        } 
-		catch (Exception e) 
-		{
+        Chapter chapter = chapterRepository.findById(id).get();
+        try {
+            chapter.setInhalt(chapterInfos.getInhalt());
+            chapterRepository.save(chapter);
+        } catch (Exception e) {
             throw new ChapterCouldNotBeUpdatedException(chapter.getInhalt());
         }
-
-		return ResponseEntity.ok("Updated");
-
-	}
+        return ResponseEntity.ok("Updated");
+    }
 }

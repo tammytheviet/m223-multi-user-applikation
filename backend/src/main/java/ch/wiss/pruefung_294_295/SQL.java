@@ -22,7 +22,7 @@ public class SQL
     final static private String username = "root";
 
     //unveränderliches Passwort
-    final static private String password = "root";
+    final static private String password = System.getenv("DB_PASSWORD");
     
     public static void SQLscript()
     {

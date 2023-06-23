@@ -1,4 +1,4 @@
-package ch.wiss.pruefung_294_295.MangaController;
+package ch.wiss.pruefung_294_295.Tests;
 
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -6,6 +6,7 @@ import org.springframework.test.context.ActiveProfiles;
 
 import ch.wiss.pruefung_294_295.controller.ChapterController;
 import ch.wiss.pruefung_294_295.controller.MangaController;
+import ch.wiss.pruefung_294_295.model.Chapter;
 import ch.wiss.pruefung_294_295.model.Manga;
 import ch.wiss.pruefung_294_295.repository.ChapterRepository;
 import ch.wiss.pruefung_294_295.repository.MangaRepository;
@@ -22,7 +23,7 @@ import org.mockito.Mock;
 
 @SpringBootTest
 @ActiveProfiles("test")
-public class MangaControllerTest {
+public class ChapterControllerTest {
 	
 	@MockBean private MangaRepository mangaRepository;
 	@MockBean private ChapterRepository chapterRepository;
@@ -31,44 +32,49 @@ public class MangaControllerTest {
 	@Mock ChapterController chapterController;
 
 	// testManga wird für alle Tests verwendet
-	Manga testManga = new Manga("Testname", 
-								"Testgenre", 
-								"Testzeichner", 
-								"Testautor", 
-								"Teststatus", 
-									new Date(2019-03-23)
-								);
-
-	@Test
-	public void whenMangaControllerInjected_thenNotNull() throws Exception {
-		assertThat(mangaController).isNotNull(); //hier wird geprüft, ob unser SUT existiert
-	}
+	Manga testManga = new Manga(
+		"Testname", 
+		"Testgenre", 
+		"Testzeichner", 
+		"Testautor", 
+		"Teststatus", 
+		new Date(2019-03-23)
+	);
 	
 	@Test
-    public void testAddManga() 
-    {	
+	public void whenChapterControllerInjected_thenNotNull() throws Exception {
+		assertThat(chapterController).isNotNull(); //hier wird geprüft, ob unser SUT existiert
+	}
+
+	@Test
+    public void testAddChapter() 
+	{	
 		// given
-		final String testTitel = "Testname";
+		final String testInhalt = "Testinhalt";
+		mangaRepository.save(testManga);
+		Chapter testChapter = new Chapter(testInhalt, testManga);
 
 		// when
-		mangaRepository.save(testManga);
+		chapterRepository.save(testChapter);
 
 		// then
-		Optional<Manga> result = mangaRepository.findByTitel(testTitel);
+		Optional<Chapter> result = chapterRepository.findByInhalt(testInhalt);
 		assertNotNull(result);
     }
 
 	@Test
-	public void testDeleteManga(){
+	public void testDeleteChapter(){
 		// given
-		final String testTitel = "Testname";
+		final String testInhalt = "Testinhalt";
 		mangaRepository.save(testManga);
+		Chapter testChapter = new Chapter(testInhalt, testManga);
+		chapterRepository.save(testChapter);
 
 		// when
-		mangaRepository.delete(testManga);
+		chapterRepository.delete(testChapter);
 
 		// then
-		Optional<Manga> result = mangaRepository.findByTitel(testTitel);
+		Optional<Chapter> result = chapterRepository.findByInhalt(testInhalt);
 		assertEquals(Optional.empty(), result);
 	}
 }

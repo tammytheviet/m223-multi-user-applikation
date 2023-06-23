@@ -1,4 +1,4 @@
-package ch.wiss.pruefung_294_295.MangaController;
+package ch.wiss.pruefung_294_295.Tests;
 
 import org.junit.jupiter.api.Test;
 import org.mockito.Spy;
