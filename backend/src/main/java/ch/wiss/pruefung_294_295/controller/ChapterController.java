@@ -4,6 +4,7 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import ch.wiss.pruefung_294_295.exceptions.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -18,11 +19,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import ch.wiss.pruefung_294_295.exceptions.ChapterCouldNotBeDeletedException;
-import ch.wiss.pruefung_294_295.exceptions.ChapterCouldNotBeSavedException;
-import ch.wiss.pruefung_294_295.exceptions.ChapterCouldNotBeUpdatedException;
-import ch.wiss.pruefung_294_295.exceptions.ChapterLoadException;
-import ch.wiss.pruefung_294_295.exceptions.MangaCouldNotBeFoundException;
 import ch.wiss.pruefung_294_295.model.Chapter;
 import ch.wiss.pruefung_294_295.model.Manga;
 import ch.wiss.pruefung_294_295.repository.ChapterRepository;
@@ -48,26 +44,22 @@ public class ChapterController {
      * @param chapter
      * @return "saved"
      */
-	@PostMapping(path = "/{manga}") // Map ONLY POST Requests
+    @PostMapping(path = "/{manga}") // Map ONLY POST Requests
     public ResponseEntity<String> addNewChapter(@PathVariable(value = "manga") Integer mangaId,
-                                             @Valid @RequestBody Chapter chapter)
-    {
+                                                @Valid @RequestBody Chapter chapter) {
         Optional<Manga> manga = mangaRepository.findById(mangaId);
 
-        if (manga.isEmpty())
-        {
+        if (manga.isPresent()) {
+            chapter.setManga(manga.get());
+            try {
+                chapterRepository.save(chapter);
+            } catch (Exception ex) {
+                throw new ChapterCouldNotBeSavedException(chapter.getInhalt());
+            }
+            return ResponseEntity.ok("Saved");
+        } else {
             throw new MangaCouldNotBeFoundException(mangaId);
         }
-
-        chapter.setManga(manga.get());
-
-        try {
-            chapterRepository.save(chapter);
-        } catch (Exception ex) {
-            throw new ChapterCouldNotBeSavedException(chapter.getInhalt());
-        }
-
-        return ResponseEntity.ok("Saved");
     }
 
     /**
@@ -118,16 +110,21 @@ public class ChapterController {
      * @param chapterInfos
      * @return "updated"
      */
-	@PutMapping(path = "/{id}") // UPDATE ONLY Request
-    public @ResponseBody ResponseEntity<String> updateChapter(@PathVariable (value = "id") Integer id, @RequestBody Chapter chapterInfos) {
-
-        Chapter chapter = chapterRepository.findById(id).get();
-        try {
-            chapter.setInhalt(chapterInfos.getInhalt());
-            chapterRepository.save(chapter);
-        } catch (Exception e) {
-            throw new ChapterCouldNotBeUpdatedException(chapter.getInhalt());
+    @PutMapping(path = "/{id}") // UPDATE ONLY Request
+    public @ResponseBody ResponseEntity<String> updateChapter(@PathVariable(value = "id") Integer id,
+                                                              @RequestBody Chapter chapterInfos) throws ChapterCouldNotBeFoundException {
+        Optional<Chapter> optionalChapter = chapterRepository.findById(id);
+        if (optionalChapter.isPresent()) {
+            Chapter chapter = optionalChapter.get();
+            try {
+                chapter.setInhalt(chapterInfos.getInhalt());
+                chapterRepository.save(chapter);
+            } catch (Exception e) {
+                throw new ChapterCouldNotBeUpdatedException(chapter.getInhalt());
+            }
+            return ResponseEntity.ok("Updated");
+        } else {
+            throw new ChapterCouldNotBeFoundException(id);
         }
-        return ResponseEntity.ok("Updated");
     }
 }

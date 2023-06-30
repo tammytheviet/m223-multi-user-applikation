@@ -15,15 +15,14 @@ import java.sql.Statement;
  * @param script2: SQL-Script, dass die Rolle 'ROLE_ADMIN' in die Tabelle 'role' in der Datenbank 'mangalib' einfügt
  */
 
-public class SQL 
-{
+public class SQL {
 
     //unveränderlicher Benutzername
-    final static private String username = "root";
+    private static final String username = "root";
 
     //unveränderliches Passwort
-    final static private String password = System.getenv("DB_PASSWORD");
-    
+    private static final String password = System.getenv("DB_PASSWORD");
+
     public static void SQLscript()
     {
         //Erstellt eine Verbindung zur Datenbank 'mangalib' mit dem Benutzernamen 'root' und dem Passwort 'root'
@@ -31,7 +30,7 @@ public class SQL
 
             //Erstellt ein Statement, dass SQL-Scripte ausführen kann
              Statement s = c.createStatement();)
-             
+
         {
             //Fügt die Rolle 'ROLE_USER' in die Tabelle 'role' in der Datenbank 'mangalib' ein
             String script1 = "INSERT INTO role (name) VALUES ('ROLE_USER');";

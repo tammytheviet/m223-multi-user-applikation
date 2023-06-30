@@ -26,109 +26,55 @@ import ch.wiss.pruefung_294_295.repository.MangaRepository;
 
 /**
  * Diese Klasse wird verwendet um die REST-API für die Mangas zu definieren.
- * 
+ *
  * @class MangaController
- * @author Fabio Facundo & Tam Lai Nguyen
  * @version 1.0
- * 
- * @param mangaRepository: MangaRepository
- * @param manga: Manga
  */
 @CrossOrigin(origins = "*")
 @RestController
 @RequestMapping(path = "/manga")
 @Transactional
-public class MangaController 
-{
-	//Objekt von der Klasse MangaRepository 'mangaRepository'
+public class MangaController {
 	@Autowired
 	private MangaRepository mangaRepository;
 
-	/**
-	 * Erstellt einen neuen Manga
-	 * 
-	 * @param newManga
-	 * 
-	 * @return ResponseEntity
-	 */
 	@PostMapping(path = "")
-	public ResponseEntity<String> addNewManga(@Valid @RequestBody Manga newManga) 
-	{
-		//Speichert den neuen Manga in der Datenbank
-		try 
-		{
+	public ResponseEntity<String> addNewManga(@Valid @RequestBody Manga newManga) {
+		try {
 			mangaRepository.save(newManga);
-		}
-		catch (Exception ex) 
-		{
+		} catch (Exception ex) {
 			throw new MangaCouldNotBeSavedException(newManga.getTitel());
 		}
 		return ResponseEntity.ok("Saved");
 	}
-		
-	/**
-	 * Zeigt alle Mangas an
-	 * 
-	 * @return ResponseEntity
-	 */
-	@GetMapping(path = "")
-	public ResponseEntity<Iterable<Manga>> getAllMangas() 
-	{
-		Iterable<Manga> mangas = null;
 
-		//Lädt alle Mangas aus der Datenbank
-		try 
-		{
+	@GetMapping(path = "")
+	public ResponseEntity<Iterable<Manga>> getAllMangas() {
+		Iterable<Manga> mangas = null;
+		try {
 			mangas = mangaRepository.findAll();
-		} 
-		catch (Exception ex) 
-		{
+		} catch (Exception ex) {
 			throw new MangaLoadException();
 		}
 		return ResponseEntity.ok(mangas);
 	}
-	
-	/**
-	 * Löscht einen Manga
-	 * 
-	 * @param id
-	 * 
-	 * @return ResponseEntity
-	 */
+
 	@DeleteMapping(path = "")
-    public ResponseEntity<String> deleteManga(@RequestParam int id)
-    {
+	public ResponseEntity<String> deleteManga(@RequestParam int id) {
+		try {
+			mangaRepository.deleteById(id);
+		} catch (Exception e) {
+			throw new MangaCouldNotBeDeletedException(id);
+		}
+		return ResponseEntity.ok("Deleted");
+	}
 
-		//Löscht den Manga aus der Datenbank
-        try
-        {
-            mangaRepository.deleteById(id);
-        } 
-        catch (Exception e) 
-        {
-            throw new MangaCouldNotBeDeletedException(id);
-        }
-        return ResponseEntity.ok("Deleted");
-    }
-	
-	/**
-	 * Aktualisiert einen Manga
-	 * 
-	 * @param id
-	 * 
-	 * @param mangaInfos
-	 * 
-	 * @return ResponseEntity
-	 */
-	@PutMapping(path = "/{id}") // UPDATE ONLY Request
-    public @ResponseBody ResponseEntity<String> updateManga(@PathVariable (value = "id") int id, @RequestBody Manga mangaInfos) 
-	{
-		//Lädt den Manga aus der Datenbank
-		Manga manga = mangaRepository.findById(id).get();
-
-		//Aktualisiert den Manga in der Datenbank
-        try 
-		{
+	@PutMapping(path = "/{id}")
+	public @ResponseBody ResponseEntity<String> updateManga(@PathVariable(value = "id") int id,
+															@RequestBody Manga mangaInfos) {
+		Manga manga = mangaRepository.findById(id)
+				.orElseThrow(() -> new MangaCouldNotBeUpdatedException("Manga not found"));
+		try {
 			manga.setTitel(mangaInfos.getTitel());
 			manga.setGenre(mangaInfos.getGenre());
 			manga.setZeichner(mangaInfos.getZeichner());
@@ -136,11 +82,9 @@ public class MangaController
 			manga.setStatus(mangaInfos.getStatus());
 			manga.setVeröffentlichungsdatum(mangaInfos.getVeröffentlichungsdatum());
 			mangaRepository.save(manga);
-        } 
-		catch (Exception e) 
-		{
-            throw new MangaCouldNotBeUpdatedException(manga.getTitel());
-        }
+		} catch (Exception e) {
+			throw new MangaCouldNotBeUpdatedException(manga.getTitel());
+		}
 		return ResponseEntity.ok("Updated");
 	}
 }
